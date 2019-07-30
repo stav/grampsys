@@ -8,6 +8,8 @@ vue create almeroth
 
 vue add vuetify
 
+npm install @mdi/font -D
+
 npm run serve
 
 ## Project setup

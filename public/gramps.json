@@ -1,0 +1,38 @@
+{
+  "database": {
+    "xmlns": "http://gramps-project.org/xml/1.7.1/",
+    "header": {
+      "created": {
+        "date": "2019-08-03",
+        "version": "5.0.1"
+      },
+      "researcher": "",
+      "mediapath": "/home/stav/Documents/Family/Gramps"
+    },
+    "events": {
+      "event": []
+    },
+    "people": {
+      "home": "_dafb65e81f4392bc7152616c69c",
+      "person": []
+    },
+    "families": {
+      "family": []
+    },
+    "citations": {
+      "citation": []
+    },
+    "sources": {
+      "source": []
+    },
+    "places": {
+      "placeobj": []
+    },
+    "objects": {
+      "object": []
+    },
+    "notes": {
+      "note": []
+    }
+  }
+}

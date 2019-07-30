@@ -1,91 +1,49 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer
-      v-model="drawer"
-      app
-      clipped
-    >
+
+    <v-navigation-drawer app clipped v-model="drawer">
       <v-list dense>
-        <v-list-item @click="">
-          <v-list-item-action>
-            <v-icon>mdi-view-dashboard</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Dashboard</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item @click="">
-          <v-list-item-action>
-            <v-icon>mdi-settings</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Settings</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
+        <NavItem title="Home"     target="/"         icon="mdi-home"           />
+        <NavItem title="Tree"     target="/tree"     icon="mdi-account-details"/>
+        <NavItem title="Timeline" target="/timeline" icon="mdi-playlist-check" />
+        <NavItem title="Unknown"  target="/unknown"  icon="mdi-playlist-edit"  />
+        <NavItem title="Everyone" target="/everyone" icon="mdi-playlist-star"  />
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar
-      app
-      clipped-left
-    >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>Application</v-toolbar-title>
+    <v-app-bar app dense clipped-left collapse-on-scroll color="secondary">
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
+      <v-btn icon to="/" title="Home"><v-icon>mdi-home</v-icon></v-btn>
+      <v-toolbar-title icon="mdi-home">
+        <span class="white--text">Almeroth Family Tree</span>
+      </v-toolbar-title>
+      <v-spacer/>
+      <Settings/>
     </v-app-bar>
 
     <v-content>
-      <v-container
-        fluid
-        fill-height
-      >
-        <v-layout
-          align-center
-          justify-center
-        >
-          <v-flex shrink>
-            <v-tooltip right>
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  :href="source"
-                  icon
-                  large
-                  target="_blank"
-                  v-on="on"
-                >
-                  <v-icon large>mdi-code-tags</v-icon>
-                </v-btn>
-              </template>
-              <span>Source</span>
-            </v-tooltip>
-            <v-tooltip right>
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  icon
-                  large
-                  href="https://codepen.io/johnjleider/pen/bXNzZL"
-                  target="_blank"
-                  v-on="on"
-                >
-                  <v-icon large>mdi-codepen</v-icon>
-                </v-btn>
-              </template>
-              <span>Codepen</span>
-            </v-tooltip>
-          </v-flex>
-        </v-layout>
-      </v-container>
+      <v-fade-transition mode="out-in">
+        <router-view/>
+      </v-fade-transition>
     </v-content>
 
     <v-footer app>
       <span>&copy; 2019</span>
     </v-footer>
+
   </v-app>
 </template>
 
 <script>
+  import NavItem from '@/components/NavItem'
+  import Settings from '@/components/Settings'
+  import log from '@/data/log';
+
   export default {
-    props: {
-      source: String,
+
+    components: {
+      NavItem,
+      Settings,
     },
 
     data: () => ({
@@ -93,7 +51,10 @@
     }),
 
     created () {
-      this.$vuetify.theme.dark = true
+      this.$vuetify.theme.dark = true;
+      log.header()
+      log.datafile('* App created: datafile')
     },
+
   }
 </script>

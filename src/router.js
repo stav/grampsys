@@ -1,6 +1,10 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Home from './views/Home.vue'
+import Vue      from 'vue'
+import Router   from 'vue-router'
+import Home     from './views/Home.vue'
+import Tree     from './views/Tree.vue'
+import Unknown  from './views/Unknown.vue'
+import Everyone from './views/Everyone.vue'
+import Timeline from './views/Timeline.vue'
 
 Vue.use(Router)
 
@@ -10,6 +14,26 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/tree',
+      name: 'tree',
+      component: Tree
+    },
+    {
+      path: '/timeline',
+      name: 'timeline',
+      component: Timeline
+    },
+    {
+      path: '/unknown',
+      name: 'unknown',
+      component: Unknown
+    },
+    {
+      path: '/everyone',
+      name: 'everyone',
+      component: Everyone
     },
     {
       path: '/about',
