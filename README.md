@@ -1,4 +1,14 @@
-# almeroth
+# The Almeroth Family Tree
+
+node ./xml2json.js
+
+npm install @vue/cli -g
+
+vue create almeroth
+
+vue add vuetify
+
+npm run serve
 
 ## Project setup
 ```
