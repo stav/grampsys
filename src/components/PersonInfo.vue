@@ -61,7 +61,7 @@
 
 <script>
 
-  import { getPersonByHandle } from '@/data/models';
+  import { getPersonByHandle } from '@/data';
 
   import InfoField from '@/components/InfoField';
 

@@ -17,11 +17,7 @@
 
 <script>
 
-  import {
-    getFamilyPatron,
-    getMemberById,
-   }  from '@/data/models';
-
+  import { getFamilyPatron, getMemberById }  from '@/data';
   import FamilyTree from '@/components/FamilyTree'
   import PersonInfo from '@/components/PersonInfo'
 
