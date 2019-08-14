@@ -18,7 +18,7 @@
         <span class="white--text">Almeroth Family Tree</span>
       </v-toolbar-title>
       <v-spacer/>
-      <Settings/>
+      <Database/>
     </v-app-bar>
 
     <v-content>
@@ -36,14 +36,14 @@
 
 <script>
   import NavItem from '@/components/NavItem'
-  import Settings from '@/components/Settings'
+  import Database from '@/components/Database'
   import log from '@/data/log';
 
   export default {
 
     components: {
       NavItem,
-      Settings,
+      Database,
     },
 
     data: () => ({

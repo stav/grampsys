@@ -1,17 +1,17 @@
 <template>
 
-  <v-dialog scrollable max-width="500" v-model="settings">
+  <v-dialog scrollable max-width="500" v-model="database">
 
     <template v-slot:activator="{ on }">
-      <v-btn v-on="on">
-        <v-icon>mdi-settings</v-icon>
+      <v-btn v-on="on" title="Database">
+        <v-icon>mdi-folder-account</v-icon>
       </v-btn>
     </template>
 
     <v-card>
       <v-card-title class="headline accent" primary-title>
-        <v-icon class="mr-2">mdi-settings</v-icon>
-        Settings
+        <v-icon class="mr-2">mdi-folder-account</v-icon>
+        Database
       </v-card-title>
 
       <v-card-text>
@@ -52,7 +52,7 @@
       datafileCandidate: '',
       datafile: '',
       file: [],
-      settings: false,
+      database: false,
     }),
 
     methods: {
@@ -68,7 +68,7 @@
       load () {
         this.datafile = this.datafileCandidate
         localStorage.setItem('datafile', this.datafile)
-        log.datafile('* App load: datafile')
+        log.datafile('Database load: datafile')
         this.settings = false
       },
     },
