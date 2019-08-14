@@ -8,7 +8,7 @@ import u from './utils';
  */
 function datafile ( text ) {
   const datafile = localStorage.getItem('datafile');
-  console.log( text, _meta(datafile),
+  console.log( '*', text, 'datafile', _meta(datafile),
     datafile
     .substring(0, 99)
     .replace(/\s+/g, ' ')
@@ -19,7 +19,16 @@ function datafile ( text ) {
  * Log object to standard out
  */
 function object ( text, object ) {
-  console.log( text, object )
+  console.log( '*', text, _meta(object), object )
+}
+
+/**
+ * Log db from store to standard out
+ */
+function store ( text, store ) {
+  const db = store.state.db;
+  const level = u.isEmpty( db ) ? 'empty' : '';
+  console.log( '*', text, 'store', level, '*', store.getters.databaseEmpty, store )
 }
 
 /**
@@ -38,7 +47,7 @@ function db ( text, db ) {
     person = db && db.people && db.people.person ? db.people.person.length : 0,
     family = db && db.families && db.families.family ? db.families.family.length : 0,
     _=null;
-  console.log( text, _meta(db),
+  console.log( '*', text, _meta(db),
     family, 'families',
     person, 'people',
     event, 'events',
@@ -58,6 +67,7 @@ export default {
   datafile,
   header,
   object,
+  store,
   db,
 
 }

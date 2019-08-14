@@ -56,9 +56,8 @@ function isArray ( o ){
  * Check if the given thing is empty
  */
 function isEmpty ( o ) {
-    if ( isArray( o ) ) {
-        return Boolean( o.length === 0 )
-    }
+    if ( o === undefined || o === null ) return true;
+    if ( isArray( o ) ) return Boolean( o.length === 0 );
     // return Boolean( Object.keys( o ).length === 0 )
     return Boolean( Object.getOwnPropertyNames( o ).length === 0 )
 }

@@ -57,7 +57,7 @@
     },
 
     created () {
-      log.datafile('* FamilyTree created: datafile')
+      log.datafile('FamilyTree created:')
     },
 
     // beforeMount () {

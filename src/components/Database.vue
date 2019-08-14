@@ -3,7 +3,7 @@
   <v-dialog scrollable max-width="500" v-model="database">
 
     <template v-slot:activator="{ on }">
-      <v-btn v-on="on" title="Database">
+      <v-btn v-on="on" title="Database" v-show="databaseEmpty">
         <v-icon>mdi-folder-account</v-icon>
       </v-btn>
     </template>
@@ -55,6 +55,12 @@
       database: false,
     }),
 
+    computed: {
+      databaseEmpty () {
+        return this.$store.getters.databaseEmpty
+      },
+    },
+
     methods: {
       inquire () {
         const self = this;
@@ -69,8 +75,12 @@
         this.datafile = this.datafileCandidate
         localStorage.setItem('datafile', this.datafile)
         log.datafile('Database load: datafile')
-        this.settings = false
+        this.database = false
       },
+    },
+
+    created () {
+      log.store('Database created:', this.$store)
     },
 
   }
