@@ -3,7 +3,7 @@
   <v-dialog scrollable max-width="500" v-model="database">
 
     <template v-slot:activator="{ on }">
-      <v-btn v-on="on" title="Database" v-show="databaseEmpty">
+      <v-btn v-on="on" title="Load database" v-show="databaseEmpty">
         <v-icon>mdi-folder-account</v-icon>
       </v-btn>
     </template>
@@ -11,7 +11,7 @@
     <v-card>
       <v-card-title class="headline accent" primary-title>
         <v-icon class="mr-2">mdi-folder-account</v-icon>
-        Database
+        Load database
       </v-card-title>
 
       <v-card-text>

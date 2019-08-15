@@ -19,7 +19,7 @@
         <span class="white--text">Almeroth Family Tree</span>
       </v-toolbar-title>
       <v-spacer/>
-      <Database/>
+      <DatabaseLoader/>
     </v-app-bar>
 
     <v-content>
@@ -37,14 +37,14 @@
 
 <script>
   import NavItem from '@/components/NavItem'
-  import Database from '@/components/Database'
+  import DatabaseLoader from '@/components/DatabaseLoader'
   import log from '@/data/log';
 
   export default {
 
     components: {
       NavItem,
-      Database,
+      DatabaseLoader,
     },
 
     data: () => ({
@@ -57,10 +57,10 @@
       log.store('App created:', this.$store)
       log.datafile('App created:')
 
-      if ( this.$store.getters.databaseEmpty ) {
-        this.$store.dispatch('seekDatabase')
-        log.store('App created get:', this.$store)
-      }
+      // if ( this.$store.getters.databaseEmpty ) {
+      //   this.$store.dispatch('seekDatabase')
+      //   log.store('App created get:', this.$store)
+      // }
     },
 
   }
