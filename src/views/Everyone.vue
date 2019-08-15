@@ -9,14 +9,14 @@
 
 <script>
   import Timeline from '@/components/Timeline'
-  import People   from '@/data/People'
+  import people   from '@/data/people'
 
   export default {
     components: {
       Timeline
     },
     data: () => ({
-      people: People.all,
+      people: people.all,
     }),
   }
 </script>

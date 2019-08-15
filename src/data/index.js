@@ -3,8 +3,6 @@
  */
 import { database as db } from '../../public/gramps.json';
 import { Person, Member } from './models';
-import events from './events';
-import u      from './utils';
 
 
 function getFamilyPatron() {
@@ -37,6 +35,10 @@ function getFamily ( handle ) {
   return db.families.family.find( f => f.handle === handle )
 }
 
+function header () {
+  return db.header
+}
+
 function getParents ( person, member ) {
   if ( person._ && person._.childof && person._.childof ) {
     const parents = getFamily( person._.childof.hlink );
@@ -63,4 +65,6 @@ export {
   getFather,
   getMother,
   getFamily,
+
+  header,
 }

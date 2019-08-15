@@ -8,6 +8,7 @@
         <NavItem title="Timeline" target="/timeline" icon="mdi-playlist-check" />
         <NavItem title="Unknown"  target="/unknown"  icon="mdi-playlist-edit"  />
         <NavItem title="Everyone" target="/everyone" icon="mdi-playlist-star"  />
+        <NavItem title="Settings" target="/settings" icon="mdi-settings"       />
       </v-list>
     </v-navigation-drawer>
 
