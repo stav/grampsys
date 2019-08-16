@@ -80,7 +80,7 @@
     },
 
     created () {
-      log.store('Database created:', this.$store)
+      log.store('DatabaseLoader created:', this.$store)
     },
 
   }

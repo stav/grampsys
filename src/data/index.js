@@ -35,7 +35,7 @@ function getFamily ( handle ) {
   return db.families.family.find( f => f.handle === handle )
 }
 
-function header () {
+function dbFileHeader () {
   return db.header
 }
 
@@ -66,5 +66,5 @@ export {
   getMother,
   getFamily,
 
-  header,
+  dbFileHeader,
 }

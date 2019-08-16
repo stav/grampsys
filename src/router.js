@@ -5,7 +5,7 @@ import Tree     from '@/views/Tree.vue'
 import Unknown  from '@/views/Unknown.vue'
 import Everyone from '@/views/Everyone.vue'
 import Timeline from '@/views/Timeline.vue'
-import Settings from '@/views/Settings.vue'
+import Database from '@/views/Database.vue'
 
 Vue.use(Router)
 
@@ -37,9 +37,9 @@ export default new Router({
       component: Everyone
     },
     {
-      path: '/settings',
-      name: 'settings',
-      component: Settings
+      path: '/database',
+      name: 'database',
+      component: Database
     },
     {
       path: '/about',
