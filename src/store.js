@@ -1,8 +1,20 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { Person, Member } from '@/data/models';
 import { database as db } from '../public/gramps.json';
 
 Vue.use(Vuex)
+
+function getOldestMalePerson ( vuexdb ) {
+  if ( !vuexdb ) return;
+  const
+    people = vuexdb.people.person,
+    mapped = people.map( person => new Person(person) ),
+    soborn = mapped.filter( person => person.dob ),
+    sorted = soborn.sort( (a, b) => ('' + a.dob).localeCompare(b.dob) );
+
+  return sorted[0]
+}
 
 export default new Vuex.Store({
 
@@ -17,6 +29,11 @@ export default new Vuex.Store({
     databaseEmpty ( state ) {
       return state.db === null
     },
+
+    familyPatron ( state ) {
+      const patron = getOldestMalePerson( state.db );
+      return patron ? new Member( patron ) : undefined
+    }
 
   },
 

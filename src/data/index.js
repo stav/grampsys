@@ -5,20 +5,6 @@ import { database as db } from '../../public/gramps.json';
 import { Person, Member } from './models';
 
 
-function getFamilyPatron() {
-  const patron = getOldestMalePerson();
-  return patron ? new Member( patron ) : undefined
-}
-
-function getOldestMalePerson () {
-  const
-    people = db.people.person,
-    mapped = people.map( person => new Person(person) ),
-    soborn = mapped.filter( person => person.dob ),
-    sorted = soborn.sort( (a, b) => ('' + a.dob).localeCompare(b.dob) );
-  return sorted[0]
-}
-
 function getPersonByHandle ( handle ) {
   return new Person(db.people.person.find( p => p.handle === handle ))
 }
@@ -59,7 +45,6 @@ function getMother ( person ) {
 
 
 export {
-  getFamilyPatron,
   getMemberById,
   getPersonByHandle,
   getFather,

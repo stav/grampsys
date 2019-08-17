@@ -9,7 +9,7 @@ import u from './utils';
 function datafile ( text ) {
   const datafile = localStorage.getItem('datafile');
   console.log( '*', text, 'datafile', _meta(datafile),
-    datafile
+    (datafile || '')
     .substring(0, 99)
     .replace(/\s+/g, ' ')
   )

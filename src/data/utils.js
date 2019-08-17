@@ -102,7 +102,8 @@ function first ( array ) {
  * Determine the type of object provided: Date, Array, String, etc.
  */
 function type ( o ) {
-    if ( o === undefined ) return;
+    if ( o === undefined ) return 'Undefined';
+    if ( o === null ) return 'Null';
 
     // First check if object has a class constructor
     if ( o.constructor ) {

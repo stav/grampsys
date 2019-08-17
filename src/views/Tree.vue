@@ -17,7 +17,7 @@
 
 <script>
 
-  import { getFamilyPatron, getMemberById }  from '@/data';
+  import { getMemberById }  from '@/data';
   import FamilyTree from '@/components/FamilyTree'
   import PersonInfo from '@/components/PersonInfo'
 
@@ -61,7 +61,7 @@
     computed: {
       items () {
         let branch = {};
-        const patron = getFamilyPatron();
+        const patron = this.$store.getters.familyPatron;
         if ( patron ) {
           branch = getBranch( patron );
           setDescendants( branch )
