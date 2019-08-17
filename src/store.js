@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { Person, Member } from '@/data/models';
-import { database as db } from '../public/gramps.json';
+import { database as publicDatabase } from '../public/gramps.json';
 
 Vue.use(Vuex)
 
@@ -33,7 +33,19 @@ export default new Vuex.Store({
     familyPatron ( state ) {
       const patron = getOldestMalePerson( state.db );
       return patron ? new Member( patron ) : undefined
-    }
+    },
+
+    memberById ( state ) {
+      return ( id ) => {
+        return new Member(new Person(state.db.people.person.find( p => p.id === id )))
+      }
+    },
+
+    personByHandle ( state ) {
+      return ( handle ) => {
+        return new Person(state.db.people.person.find( p => p.handle === handle ))
+      }
+    },
 
   },
 
@@ -58,7 +70,7 @@ export default new Vuex.Store({
 
     loadPublicDatabase ( state ) {
         // const database = { header: 3, events: 100, people: 32, families: 80, danuek: 'winter' };
-        state.db = db;
+        state.db = publicDatabase;
         console.log('store loadDatabase: state.db', state.db)
       },
 

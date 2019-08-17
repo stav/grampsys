@@ -61,8 +61,6 @@
 
 <script>
 
-  import { getPersonByHandle } from '@/data';
-
   import InfoField from '@/components/InfoField';
 
   export default {
@@ -83,7 +81,7 @@
           mother = family.mother ? family.mother.hlink : undefined,
           spouse = handle === father ? mother : father;
         if ( spouse ) {
-          return getPersonByHandle( spouse )
+          return this.$store.getters.personByHandle( spouse )
         }
         return {}
       },

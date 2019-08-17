@@ -17,7 +17,6 @@
 
 <script>
 
-  import { getMemberById }  from '@/data';
   import FamilyTree from '@/components/FamilyTree'
   import PersonInfo from '@/components/PersonInfo'
 
@@ -72,7 +71,7 @@
 
     methods: {
       activate ( ids ) {
-        this.activePerson = ids[0] ? getMemberById( ids[0] ) : ''
+        this.activePerson = ids[0] ? this.$store.getters.memberById( ids[0] ) : ''
       },
     },
 

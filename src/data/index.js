@@ -2,19 +2,11 @@
  * Data functions
  */
 import { database as db } from '../../public/gramps.json';
-import { Person, Member } from './models';
+import { Person } from './models';
 
 
 function getPersonByHandle ( handle ) {
   return new Person(db.people.person.find( p => p.handle === handle ))
-}
-
-function getPersonById ( id ) {
-  return new Person(db.people.person.find( p => p.id === id ))
-}
-
-function getMemberById ( id ) {
-  return new Member(new Person(db.people.person.find( p => p.id === id )))
 }
 
 function getFamily ( handle ) {
@@ -45,7 +37,6 @@ function getMother ( person ) {
 
 
 export {
-  getMemberById,
   getPersonByHandle,
   getFather,
   getMother,
