@@ -1,12 +1,6 @@
 /*
  * Data models
  */
-import {
-  getFamily,
-  getPersonByHandle,
-  getFather,
-  getMother,
-} from './';
 import events from './events';
 import u      from './utils';
 
@@ -71,7 +65,7 @@ class Person
 class Member
 {
 
-  constructor ( person )
+  constructor ( person, getters )
   {
     this._ = person;
     this.id = person.id;
@@ -80,10 +74,10 @@ class Member
     this.age = person.age;
     this.gen = 0;
     // this.parents = [];
-    this.familys = [...this._familiesGenerator()]
-    this.children = [...this._childrenGenerator()];
-    this.father = getFather( person );
-    this.mother = getMother( person );
+    this.familys = [...this._familiesGenerator( getters )]
+    this.children = [...this._childrenGenerator( getters )];
+    this.father = this.getFather( person, getters );
+    this.mother = this.getMother( person, getters );
   }
 
   // label ()
@@ -99,21 +93,39 @@ class Member
   //   }
   // }
 
-  *_familiesGenerator () {
+  *_familiesGenerator ( getters ) {
     for ( let parentin of u.toArray(this._._.parentin) ) {
       const
-        family = getFamily( parentin.hlink ),
+        family = getters.familyByHandle( parentin.hlink ),
         children = u.toArray( family ? family.childref : [] ),
-        childBranches = children.map( ref => getPersonByHandle( ref.hlink ) );
+        childBranches = children.map( ref => getters.personByHandle( ref.hlink ) );
       family.children = childBranches.sort( (a, b) => a.age < b.age );
       yield family
     }
   }
 
-  *_childrenGenerator () {
+  *_childrenGenerator ( getters ) {
     for ( let family of this.familys ) {
-      yield* family.children.map( child => new Member(child) )
+      yield* family.children.map( child => new Member(child, getters) )
     }
+  }
+
+  _getParents ( person, member, getters ) {
+    if ( person._ && person._.childof && person._.childof ) {
+      const parents = getters.familyByHandle( person._.childof.hlink );
+      if ( parents && parents[member] && parents[member].hlink ) {
+        const parent = getters.personByHandle( parents[member].hlink );
+        return parent ? parent.name : null
+      }
+    }
+  }
+
+  getFather ( person, getters ) {
+    return this._getParents( person, 'father', getters )
+  }
+
+  getMother ( person, getters ) {
+    return this._getParents( person, 'mother', getters )
   }
 
 }

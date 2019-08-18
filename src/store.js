@@ -30,21 +30,21 @@ export default new Vuex.Store({
       return state.db === null
     },
 
-    familyPatron ( state ) {
+    familyPatron ( state, getters ) {
       const patron = getOldestMalePerson( state.db );
-      return patron ? new Member( patron ) : undefined
+      return patron ? new Member( patron, getters ) : undefined
     },
 
-    memberById ( state ) {
-      return ( id ) => {
-        return new Member(new Person(state.db.people.person.find( p => p.id === id )))
-      }
+    memberById ( state, getters ) {
+      return ( id ) => new Member( new Person(state.db.people.person.find( p => p.id === id )), getters )
     },
 
     personByHandle ( state ) {
-      return ( handle ) => {
-        return new Person(state.db.people.person.find( p => p.handle === handle ))
-      }
+      return ( handle ) => new Person(state.db.people.person.find( p => p.handle === handle ))
+    },
+
+    familyByHandle ( state ) {
+      return ( handle ) => state.db.families.family.find( f => f.handle === handle )
     },
 
   },

@@ -60,7 +60,7 @@
 </template>
 
 <script>
-  import { dbFileHeader } from '@/data'
+  import dbFileHeader from '@/data'
   import publicFileEvents from '@/data/events'
   import people   from '@/data/people'
   import families from '@/data/families'
@@ -83,7 +83,7 @@
 
     data: () => ({
       publicFileDatabase: {
-        header: dbFileHeader(),
+        header: dbFileHeader,
         events: publicFileEvents.size,
         people: people.all.length,
         families: families.length,
