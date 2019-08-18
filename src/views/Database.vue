@@ -6,10 +6,10 @@
         App: Vuex Store
       </v-card-title>
       <v-card-text>
-        <div class="mb-9 monospace" v-text="appStoreDatabase.header"></div>
-        <v-slider label="Events"   v-model="appStoreDatabase.events"   :min="0" :max="max" readonly thumb-label="always" class="mt-3" />
-        <v-slider label="People"   v-model="appStoreDatabase.people"   :min="0" :max="max" readonly thumb-label="always" class="mt-3" />
-        <v-slider label="Families" v-model="appStoreDatabase.families" :min="0" :max="max" readonly thumb-label="always" class="mt-3" />
+        <div class="mb-9 monospace" v-text="appStoreDatabaseInfo.header"></div>
+        <v-slider label="Events"   v-model="appStoreDatabaseInfo.events"   :min="0" :max="max" readonly thumb-label="always" class="mt-3" />
+        <v-slider label="People"   v-model="appStoreDatabaseInfo.people"   :min="0" :max="max" readonly thumb-label="always" class="mt-3" />
+        <v-slider label="Families" v-model="appStoreDatabaseInfo.families" :min="0" :max="max" readonly thumb-label="always" class="mt-3" />
       </v-card-text>
       <v-card-actions>
         <v-btn color="warning" @click="appStoreDatabaseClear"> Clear </v-btn>
@@ -21,10 +21,10 @@
         Public File: <span class="monospace">gramps.json</span>
       </v-card-title>
       <v-card-text>
-        <div class="mb-9 monospace" v-text="publicFileDatabase.header"></div>
-        <v-slider label="Events"   v-model="publicFileDatabase.events"   :min="0" :max="max" readonly thumb-label="always" class="mt-3" />
-        <v-slider label="People"   v-model="publicFileDatabase.people"   :min="0" :max="max" readonly thumb-label="always" class="mt-3" />
-        <v-slider label="Families" v-model="publicFileDatabase.families" :min="0" :max="max" readonly thumb-label="always" class="mt-3" />
+        <div class="mb-9 monospace" v-text="publicFileDatabaseInfo.header"></div>
+        <v-slider label="Events"   v-model="publicFileDatabaseInfo.events"   :min="0" :max="max" readonly thumb-label="always" class="mt-3" />
+        <v-slider label="People"   v-model="publicFileDatabaseInfo.people"   :min="0" :max="max" readonly thumb-label="always" class="mt-3" />
+        <v-slider label="Families" v-model="publicFileDatabaseInfo.families" :min="0" :max="max" readonly thumb-label="always" class="mt-3" />
       </v-card-text>
       <v-card-actions>
         <v-btn color="success" @click="publicFileDatabaseLoad"> Load </v-btn>
@@ -50,10 +50,7 @@
 </template>
 
 <script>
-  import dbFileHeader from '@/data'
-  import publicFileEvents from '@/data/events'
-  import people   from '@/data/people'
-  import families from '@/data/families'
+  import { database as publicFileDatabase } from '../../public/gramps.json';
 
   // import log from '@/data/log';
 
@@ -72,32 +69,34 @@
   export default {
 
     data: () => ({
-      publicFileDatabase: {
-        header: dbFileHeader,
-        events: publicFileEvents.size,
-        people: people.all.length,
-        families: families.length,
+      publicFileDatabaseInfo: {
+        header:   publicFileDatabase.header,
+        events:   publicFileDatabase.events.event.length,
+        people:   publicFileDatabase.people.person.length,
+        families: publicFileDatabase.families.family.length,
       },
     }),
 
     computed: {
-      appStoreDatabase () {
-        const store = this.$store;
-        // console.log('Database appStoreDatabase: store.state.db', store.getters.databaseEmpty, store.state.db)
+      appStoreDatabaseInfo () {
+        const
+          db = this.$store.state.db,
+          databaseEmpty = this.$store.getters.databaseEmpty;
+        // console.log('Database appStoreDatabaseInfo: store.state.db', store.getters.databaseEmpty, store.state.db)
         return {
-          header:   store.getters.databaseEmpty ? 'empty' : store.state.db.header,
-          events:   store.getters.databaseEmpty ? 0 : store.state.db.events.event.length,
-          people:   store.getters.databaseEmpty ? 0 : store.state.db.people.person.length,
-          families: store.getters.databaseEmpty ? 0 : store.state.db.families.family.length,
+          header:   databaseEmpty ? 'empty' : db.header,
+          events:   databaseEmpty ?  0      : db.events.event.length,
+          people:   databaseEmpty ?  0      : db.people.person.length,
+          families: databaseEmpty ?  0      : db.families.family.length,
         }
       },
       max () {
         const
-          db = this.publicFileDatabase,
+          pdb = this.publicFileDatabaseInfo,
+          adb = this.appStoreDatabaseInfo,
           max = Math.max(
-            db.events,
-            db.people,
-            db.families
+            pdb.events, pdb.people, pdb.families,
+            adb.events, adb.people, adb.families,
           );
         return Math.ceil( max / 100 ) * 100
       },

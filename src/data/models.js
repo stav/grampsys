@@ -1,19 +1,18 @@
 /*
  * Data models
  */
-import events from './events';
-import u      from './utils';
+import u from './utils';
 
 
 class Person
 {
 
-  constructor ( json )
+  constructor ( json, events )
   {
     this._ = json;
     this.id = json.id;
     this.name = this._name();
-    this.dob = this._dob();
+    this.dob = this._dob(events);
     this.age = this._age();
   }
 
@@ -29,7 +28,7 @@ class Person
     return `${name.first} ${lname()}`.trim()
   }
 
-  _dob ()
+  _dob (events)
   {
     for (let eventref of u.toArray(this._.eventref)) {
       const hlink = eventref ? eventref.hlink : undefined;

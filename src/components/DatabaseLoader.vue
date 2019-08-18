@@ -1,9 +1,9 @@
 <template>
 
-  <v-dialog scrollable max-width="500" v-model="database">
+  <v-dialog scrollable max-width="500" v-model="loader">
 
     <template v-slot:activator="{ on }">
-      <v-btn v-on="on" title="Load database" v-show="databaseEmpty">
+      <v-btn v-on="on" title="Load database" v-show="databaseEmpty" color="primary">
         <v-icon>mdi-folder-account</v-icon>
       </v-btn>
     </template>
@@ -21,7 +21,7 @@
           label="Data File"
           @change="inquire()"
         ></v-file-input>
-        <p v-text="datafileCandidate"></p>
+        <p v-text="datafile"></p>
       </v-card-text>
 
       <v-divider/>
@@ -30,7 +30,7 @@
         <v-spacer></v-spacer>
         <v-btn color="success"
           @click="load()"
-          :disabled="!datafileCandidate"
+          :disabled="!datafile"
           >
           Load
         </v-btn>
@@ -49,10 +49,9 @@
   export default {
 
     data: () => ({
-      datafileCandidate: '',
       datafile: '',
       file: [],
-      database: false,
+      loader: false,
     }),
 
     computed: {
@@ -64,18 +63,20 @@
     methods: {
       inquire () {
         const self = this;
-        reader.onload = ( e => { self.datafileCandidate = e.target.result} );
+        reader.onload = ( e => { self.datafile = e.target.result} );
         if ( this.file ) {
           reader.readAsText(this.file)
         } else {
-          self.datafileCandidate = '';
+          self.datafile = '';
         }
       },
       load () {
-        this.datafile = this.datafileCandidate
+        const db = JSON.parse(this.datafile);
+        console.log('DatabaseLoader load: db', db)
+        this.$store.commit('loadDatabase', db.database)
         localStorage.setItem('datafile', this.datafile)
         log.datafile('Database load: datafile')
-        this.database = false
+        this.loader = false
       },
     },
 

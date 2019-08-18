@@ -22,19 +22,26 @@
 
 <script>
   import Timeline from '@/components/Timeline'
-  import people   from '@/data/people'
 
   export default {
+
     components: {
       Timeline
     },
+
     data: () => ({
       currentTab: null,
-      tabs: [
-        {index: 1, people: people.born  , text: 'A chronological listing of family members with a known birthdate, or at least a birth year'},
-        {index: 2, people: people.unborn, text: 'A chronological listing of family members without a known birthdate'},
-        {index: 3, people: people.all   , text: 'A chronological listing of all family members'},
-      ],
     }),
+
+    computed: {
+      tabs () {
+        return [
+          {index: 1, people: this.$store.getters.bornPeople  , text: 'A chronological listing of family members with a known birthdate, or at least a birth year'},
+          {index: 2, people: this.$store.getters.unbornPeople, text: 'A chronological listing of family members without a known birthdate'},
+          {index: 3, people: this.$store.getters.allPeople   , text: 'A chronological listing of all family members'},
+        ]
+      },
+    },
+
   }
 </script>
