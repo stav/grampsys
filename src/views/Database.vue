@@ -93,7 +93,7 @@
     computed: {
       appStoreDatabase () {
         const store = this.$store;
-        console.log('Database appStoreDatabase: store.state.db', store.getters.databaseEmpty, store.state.db)
+        // console.log('Database appStoreDatabase: store.state.db', store.getters.databaseEmpty, store.state.db)
         return {
           header:   store.getters.databaseEmpty ? 'empty' : store.state.db.header,
           events:   store.getters.databaseEmpty ? 0 : store.state.db.events.event.length,
@@ -122,18 +122,18 @@
 
     methods: {
       appStoreDatabaseClear () {
-        console.log(this)
+        // console.log(this)
         this.$store.commit('clearDatabase')
       },
       publicFileDatabaseLoad () {
-        console.log(this)
+        // console.log(this)
         this.$store.commit('loadPublicDatabase')
       },
     },
 
-    created () {
-      log.object('Database created: events', publicFileEvents)
-    },
+    // created () {
+    //   log.object('Database created: events', publicFileEvents)
+    // },
 
   }
 </script>

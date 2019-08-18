@@ -56,9 +56,9 @@
       },
     },
 
-    created () {
-      log.datafile('FamilyTree created:')
-    },
+    // created () {
+    //   log.datafile('FamilyTree created:')
+    // },
 
     // beforeMount () {
     //   log.db('  Tree beforeMount: db', db)

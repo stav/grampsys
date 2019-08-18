@@ -79,9 +79,5 @@
       },
     },
 
-    created () {
-      log.store('DatabaseLoader created:', this.$store)
-    },
-
   }
 </script>

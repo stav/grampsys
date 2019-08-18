@@ -64,19 +64,16 @@ export default new Vuex.Store({
   mutations: {
 
     clearDatabase ( state ) {
-        console.log('store clearDatabase: state.db', state.db)
         state.db = null;
       },
 
     loadPublicDatabase ( state ) {
         // const database = { header: 3, events: 100, people: 32, families: 80, danuek: 'winter' };
         state.db = publicDatabase;
-        console.log('store loadDatabase: state.db', state.db)
       },
 
     loadDatabase ( state, database ) {
         state.db = database;
-        console.log('store loadDatabase: state.db', state.db)
         // this.dispatch('queueInfo', 'db updated');
       },
 

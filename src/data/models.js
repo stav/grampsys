@@ -7,7 +7,6 @@ import {
   getFather,
   getMother,
 } from './';
-import { database as db } from '../../public/gramps.json';
 import events from './events';
 import u      from './utils';
 
@@ -80,10 +79,9 @@ class Member
     this.dob = person.dob;
     this.age = person.age;
     this.gen = 0;
-    this.parents = [];
-    this.parentins = u.toArray(person._.parentin);
+    // this.parents = [];
     this.familys = [...this._familiesGenerator()]
-    this.children = [...this._getChildren()];
+    this.children = [...this._childrenGenerator()];
     this.father = getFather( person );
     this.mother = getMother( person );
   }
@@ -101,23 +99,20 @@ class Member
   //   }
   // }
 
-  *_getChildren () {
-    for (let parent of u.toArray(this._._.parentin)) {
-      const family = getFamily( parent.hlink );
-      const childrefs = u .toArray( family ? family.childref : [] );
-      const children = childrefs.map( ref => getPersonByHandle( ref.hlink ) );
-      yield* children.sort( (a, b) => a.age < b.age ).map( child => new Member(child) )
-    }
-  }
-
   *_familiesGenerator () {
-    for ( let parentin of this.parentins ) {
+    for ( let parentin of u.toArray(this._._.parentin) ) {
       const
         family = getFamily( parentin.hlink ),
         children = u.toArray( family ? family.childref : [] ),
         childBranches = children.map( ref => getPersonByHandle( ref.hlink ) );
       family.children = childBranches.sort( (a, b) => a.age < b.age );
       yield family
+    }
+  }
+
+  *_childrenGenerator () {
+    for ( let family of this.familys ) {
+      yield* family.children.map( child => new Member(child) )
     }
   }
 
