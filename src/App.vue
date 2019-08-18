@@ -6,8 +6,6 @@
         <NavItem title="Home"     target="/"         icon="mdi-home"           />
         <NavItem title="Tree"     target="/tree"     icon="mdi-account-details"/>
         <NavItem title="Timeline" target="/timeline" icon="mdi-playlist-check" />
-        <NavItem title="Unknown"  target="/unknown"  icon="mdi-playlist-edit"  />
-        <NavItem title="Everyone" target="/everyone" icon="mdi-playlist-star"  />
         <NavItem title="Database" target="/database" icon="mdi-folder-account" />
       </v-list>
     </v-navigation-drawer>
@@ -29,7 +27,7 @@
     </v-content>
 
     <v-footer app>
-      <span>&copy; 2019</span>
+      <span>&copy; 2019 Steven Almeroth</span>
     </v-footer>
 
   </v-app>
@@ -38,7 +36,7 @@
 <script>
   import NavItem from '@/components/NavItem'
   import DatabaseLoader from '@/components/DatabaseLoader'
-  import log from '@/data/log';
+  // import log from '@/data/log';
 
   export default {
 

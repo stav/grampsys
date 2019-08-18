@@ -6,7 +6,7 @@
       <v-icon v-text="icon"></v-icon>
     </v-list-item-action>
 
-    <v-list-item-content>
+    <v-list-item-content color="white">
       <v-list-item-title v-text="title"></v-list-item-title>
     </v-list-item-content>
 

@@ -1,16 +1,6 @@
 <template>
   <v-container fluid>
 
-    <v-layout text-center wrap>
-      <v-flex xs12>
-        <v-icon x-large>mdi-folder-account</v-icon>
-      </v-flex>
-      <v-flex mb-4>
-        <h1 class="display-2 font-weight-bold mb-3"> Database </h1>
-        <p> Database mogrification </p>
-      </v-flex>
-    </v-layout>
-
     <v-card class="mb-9" color="indigo darken-3">
       <v-card-title class="d-block mb-3 px-4 py-2 primary">
         App: Vuex Store
@@ -65,7 +55,7 @@
   import people   from '@/data/people'
   import families from '@/data/families'
 
-  import log from '@/data/log';
+  // import log from '@/data/log';
 
   function getWebStorage () {
     const datafile = localStorage.getItem('datafile');

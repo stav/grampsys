@@ -45,8 +45,7 @@ function db ( text, db ) {
   const
     event = db && db.events && db.events.event ? db.events.event.length : 0,
     person = db && db.people && db.people.person ? db.people.person.length : 0,
-    family = db && db.families && db.families.family ? db.families.family.length : 0,
-    _=null;
+    family = db && db.families && db.families.family ? db.families.family.length : 0;
   console.log( '*', text, _meta(db),
     family, 'families',
     person, 'people',
