@@ -36,7 +36,7 @@
 <script>
   import NavItem from '@/components/NavItem'
   import DatabaseLoader from '@/components/DatabaseLoader'
-  // import log from '@/data/log';
+  import log from '@/data/log';
 
   export default {
 
@@ -52,10 +52,10 @@
     created () {
       this.$vuetify.theme.dark = true;
 
-      // if ( this.$store.getters.databaseEmpty ) {
-      //   this.$store.dispatch('seekDatabase')
-      //   log.store('App created get:', this.$store)
-      // }
+      if ( this.$store.getters.appDatabaseEmpty ) {
+        this.$store.dispatch('seekDatabase')
+        log.store('App created get:', this.$store)
+      }
     },
 
   }

@@ -28,7 +28,7 @@ function object ( text, object ) {
 function store ( text, store ) {
   const db = store.state.db;
   const level = u.isEmpty( db ) ? 'empty' : '';
-  console.log( '*', text, 'store', level, '*', store.getters.databaseEmpty, store )
+  console.log( '*', text, 'store', level, '*', store.getters.appDatabaseEmpty, store )
 }
 
 /**

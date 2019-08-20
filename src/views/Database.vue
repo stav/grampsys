@@ -81,13 +81,13 @@
       appStoreDatabaseInfo () {
         const
           db = this.$store.state.db,
-          databaseEmpty = this.$store.getters.databaseEmpty;
-        // console.log('Database appStoreDatabaseInfo: store.state.db', store.getters.databaseEmpty, store.state.db)
+          appDatabaseEmpty = this.$store.getters.appDatabaseEmpty;
+        // console.log('Database appStoreDatabaseInfo: store.state.db', store.getters.appDatabaseEmpty, store.state.db)
         return {
-          header:   databaseEmpty ? 'empty' : db.header,
-          events:   databaseEmpty ?  0      : db.events.event.length,
-          people:   databaseEmpty ?  0      : db.people.person.length,
-          families: databaseEmpty ?  0      : db.families.family.length,
+          header:   appDatabaseEmpty ? 'empty' : db.header,
+          events:   appDatabaseEmpty ?  0      : db.events.event.length,
+          people:   appDatabaseEmpty ?  0      : db.people.person.length,
+          families: appDatabaseEmpty ?  0      : db.families.family.length,
         }
       },
       max () {

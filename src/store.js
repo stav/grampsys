@@ -26,8 +26,18 @@ export default new Vuex.Store({
 
   getters: {
 
-    databaseEmpty ( state ) {
+    appDatabaseEmpty ( state ) {
       return state.db === null
+    },
+
+    publicDatabaseEmpty ( state ) {
+      if (
+        publicDatabase &&
+        publicDatabase.events   && publicDatabase.events.event    && publicDatabase.events.event.length  &&
+        publicDatabase.people   && publicDatabase.people.person   && publicDatabase.people.person.length &&
+        publicDatabase.families && publicDatabase.families.family && publicDatabase.families.family.length
+      ) return false;
+      else return true
     },
 
     familyPatron ( state, getters ) {
@@ -48,7 +58,7 @@ export default new Vuex.Store({
     },
 
     allPeople ( state, getters ) {
-      return (getters.databaseEmpty ? [] : state.db.people.person)
+      return (getters.appDatabaseEmpty ? [] : state.db.people.person)
         .map( person => new Person(person, getters.events) )
     },
 
@@ -90,7 +100,7 @@ export default new Vuex.Store({
      */
     events ( state, getters ) {
       let event_map = new Map();
-      const events = getters.databaseEmpty ? [] : state.db.events.event;
+      const events = getters.appDatabaseEmpty ? [] : state.db.events.event;
       for (let event of events) {
         event_map.set(event.handle, event)
       }
@@ -101,12 +111,24 @@ export default new Vuex.Store({
 
   actions: {
 
-    seekDatabase ({ commit }) {
-      const
-        datafile = localStorage.getItem('datafile'),
-        database = JSON.parse(datafile);
+    seekDatabase ({ commit, getters }) {
+      console.log('store seekDatabase: publicDatabaseEmpty', getters.publicDatabaseEmpty)
 
-      commit('loadDatabase', database.database)
+      const webStorageDatafile = localStorage.getItem('datafile');
+      console.log('store seekDatabase: webStorageDatafile', webStorageDatafile)
+      if ( webStorageDatafile ) {
+        // Load web storage
+        commit('loadDatabase', JSON.parse(webStorageDatafile).database)
+      }
+
+      else if ( !getters.publicDatabaseEmpty ) {
+        // Load public database
+        commit('loadPublicDatabase')
+      }
+      else {
+        // We need to upload a database file
+        console.log('No data found, upload a json file database converted from the gramps.xml backup')
+      }
     },
 
   },

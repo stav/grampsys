@@ -3,7 +3,7 @@
   <v-dialog scrollable max-width="500" v-model="loader">
 
     <template v-slot:activator="{ on }">
-      <v-btn v-on="on" title="Load database" v-show="databaseEmpty" color="primary">
+      <v-btn v-on="on" title="Load database" :color="appDatabaseEmpty ? 'primary' : 'secondary'">
         <v-icon>mdi-folder-account</v-icon>
       </v-btn>
     </template>
@@ -55,8 +55,8 @@
     }),
 
     computed: {
-      databaseEmpty () {
-        return this.$store.getters.databaseEmpty
+      appDatabaseEmpty () {
+        return this.$store.getters.appDatabaseEmpty
       },
     },
 
