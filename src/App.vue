@@ -51,11 +51,8 @@
 
     created () {
       this.$vuetify.theme.dark = true;
-
-      if ( this.$store.getters.appDatabaseEmpty ) {
-        this.$store.dispatch('seekDatabase')
-        log.store('App created get:', this.$store)
-      }
+      this.$store.dispatch('setupDatabase')
+      log.store('App created: store:', this.$store)
     },
 
   }

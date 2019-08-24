@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { Person, Member } from '@/data/models';
+import { webStorageDatabaseFactory } from '@/data/browser';
 import { database as publicDatabase } from '../public/gramps.json';
+
+import log from '@/data/log';
 
 Vue.use(Vuex)
 
@@ -21,6 +24,7 @@ export default new Vuex.Store({
   state: {
 
     db: null,
+    webStorageDatabase: '',
 
   },
 
@@ -111,43 +115,73 @@ export default new Vuex.Store({
 
   actions: {
 
-    seekDatabase ({ commit, getters }) {
-      console.log('store seekDatabase: publicDatabaseEmpty', getters.publicDatabaseEmpty)
-
-      const webStorageDatafile = localStorage.getItem('datafile');
-      console.log('store seekDatabase: webStorageDatafile', webStorageDatafile)
-      if ( webStorageDatafile ) {
-        // Load web storage
-        commit('loadDatabase', JSON.parse(webStorageDatafile).database)
+    setupDatabase ({ getters, commit }) {
+      const webStorageDb = webStorageDatabaseFactory();
+      log.object('store setupDatabase: webStorageDb', webStorageDb)
+      if ( webStorageDb ) {
+        // Load web storage database
+        commit('loadDatabase', webStorageDb)
       }
-
       else if ( !getters.publicDatabaseEmpty ) {
         // Load public database
         commit('loadPublicDatabase')
       }
       else {
         // We need to upload a database file
-        console.log('No data found, upload a json file database converted from the gramps.xml backup')
+        console.log('No data found, click the upload button to upload a gramps JSON export')
       }
+    },
+
+    loadDataFile ( {commit}, datafile ) {
+      let db = null;
+      try {
+        db = JSON.parse( datafile ).database;
+      }
+      catch (e) {
+        console.log('store loadDataFile:', e, 'Cannot load datafile', datafile)
+        return
+      }
+      commit('loadDatabase', db)
+      commit('loadWebStorageDatabase', db)
+      localStorage.setItem('datafile', datafile)
     },
 
   },
 
   mutations: {
 
+    loadDatabase ( state, database ) {
+      console.log('store loadDatabase: database', database)
+      state.db = database;
+      // this.dispatch('queueInfo', 'db updated');
+    },
+
     clearDatabase ( state ) {
-        state.db = null;
-      },
+      state.db = null;
+    },
 
     loadPublicDatabase ( state ) {
-        // const database = { header: 3, events: 100, people: 32, families: 80, danuek: 'winter' };
-        state.db = publicDatabase;
-      },
+      console.log('store loadPublicDatabase: publicDatabase', publicDatabase)
+      // const database = { header: 3, events: 100, people: 32, families: 80, danuek: 'winter' };
+      state.db = publicDatabase;
+    },
 
-    loadDatabase ( state, database ) {
-        state.db = database;
-        // this.dispatch('queueInfo', 'db updated');
-      },
+    loadWebStorageDatabase ( state , db) {
+      console.log('store loadWebStorageDatabase: db', db)
+      state.webStorageDatabase = db;
+    },
+
+    webStorageLoad ( state ) {
+      const webStorageDb = webStorageDatabaseFactory();
+      console.log('store webStorageLoad: webStorageDb', webStorageDb)
+      if ( webStorageDb )
+        state.db = webStorageDb;
+    },
+
+    webStorageClear ( state ) {
+      state.webStorageDatabase = null;
+      localStorage.removeItem('datafile')
+    },
 
   },
 

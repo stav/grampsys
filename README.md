@@ -1,4 +1,4 @@
-# The Gramps Family Tree Database Webapp User Interface
+# The Gramps Family Tree Viewer
 
 * ![Gramps Home     ](https://raw.githubusercontent.com/stav/stav.github.io/master/images/home.png)
 * ![Gramps Db Empty ](https://raw.githubusercontent.com/stav/stav.github.io/master/images/database-empty.png)

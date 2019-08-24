@@ -42,7 +42,7 @@
 </template>
 
 <script>
-  import log from '@/data/log';
+  // import log from '@/data/log';
 
   let reader = new FileReader();
 
@@ -71,11 +71,8 @@
         }
       },
       load () {
-        const db = JSON.parse(this.datafile);
-        console.log('DatabaseLoader load: db', db)
-        this.$store.commit('loadDatabase', db.database)
-        localStorage.setItem('datafile', this.datafile)
-        log.datafile('Database load: datafile')
+        this.$store.dispatch('loadDataFile', this.datafile)
+        // log.datafile('Database load: datafile')
         this.loader = false
       },
     },
