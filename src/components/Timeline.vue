@@ -2,8 +2,7 @@
   <v-container>
     <v-timeline align-top dense>
       <v-timeline-item
-        v-for="(person, i) in persons"
-        :key="i"
+        v-for="(person, i) in persons" :key="i"
         color="success lighten-1"
         icon="mdi-account"
         >

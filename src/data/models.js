@@ -14,6 +14,7 @@ class Person
     this.name = this._name();
     this.dob = this._dob(events);
     this.age = this._age();
+    this.genx = this._generationTitle();
   }
 
   _name ()
@@ -58,6 +59,20 @@ class Person
     return yearsDifference;
   }
 
+  _generationTitle ()
+  {
+    if ( !this.dob ) return;
+    const year = parseInt(this.dob.substring(0, 4));
+    if      ( year < 1900 ) return 'Previous';
+    else if ( year < 1925 ) return 'G.I.';
+    else if ( year < 1946 ) return 'Silent / Traditionalist';
+    else if ( year < 1965 ) return 'Baby Boomer';
+    else if ( year < 1980 ) return 'Generation X';
+    else if ( year < 2000 ) return 'Generation Y / Millennial';
+    else if ( year < 2010 ) return 'Generation Z / Centennial';
+                            return 'Alpha';
+  }
+
 }
 
 
@@ -71,6 +86,7 @@ class Member
     this.name = person.name;
     this.dob = person.dob;
     this.age = person.age;
+    this.genx = person.genx;
     this.gen = 0;
     // this.parents = [];
     this.familys = [...this._familiesGenerator( getters )]

@@ -5,12 +5,12 @@
       <InfoField label="Name"       :model="activePerson.name"   icon="mdi-account"/>
       <InfoField label="Birth Date" :model="activePerson.dob"    icon="mdi-calendar-today"/>
       <InfoField label="Age"        :model="activePerson.age"    icon="mdi-update"/>
+      <InfoField label="Generation" :model="activePerson.genx"   icon="mdi-update"/>
       <InfoField label="Father"     :model="activePerson.father" icon="mdi-account"/>
       <InfoField label="Mother"     :model="activePerson.mother" icon="mdi-account"/>
 
        <v-card flat class="ma-2"
-        v-for="(family, i) in activePerson.familys"
-        :key="i"
+        v-for="(family, i) in activePerson.familys" :key="i"
         >
         <v-card-title>
           <InfoField
