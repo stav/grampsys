@@ -1,16 +1,11 @@
 <template>
   <v-layout wrap>
 
-    <FamilyTree
-      :items="items"
-      v-on:activate-person="activate"
-    />
+    <FamilyTree :items="items" v-on:activate-person="activate" v-on:root-person="root" />
 
     <v-divider vertical />
 
-    <PersonInfo
-      :activePerson="activePerson"
-     />
+    <PersonInfo :activePerson="activePerson" v-on:root-person="root" />
 
   </v-layout>
 </template>
@@ -55,24 +50,26 @@
 
     data: () => ({
       activePerson: '',
+      items: [],
     }),
-
-    computed: {
-      items () {
-        let branch = {};
-        const patron = this.$store.getters.familyPatron;
-        if ( patron ) {
-          branch = getBranch( patron );
-          setDescendants( branch )
-        }
-        return [ branch ]
-      },
-    },
 
     methods: {
       activate ( ids ) {
         this.activePerson = ids[0] ? this.$store.getters.memberById( ids[0] ) : ''
       },
+      root ( id ) {
+        const patron = this.$store.getters.memberById( id );
+        let branch = {};
+        if ( patron ) {
+          branch = getBranch( patron );
+          setDescendants( branch )
+        }
+        this.items = [ branch ]
+      },
+    },
+
+    created () {
+      this.root( this.$store.getters.familyPatronPerson.id )
     },
 
   }

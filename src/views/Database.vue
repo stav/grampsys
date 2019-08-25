@@ -98,7 +98,6 @@
       },
       webStorage () {
         const webStorageDb = this.$store.state.webStorageDatabase;
-        console.log('Database webStorage: webStorageDb', webStorageDb)
         return {
           events: webStorageDb ? webStorageDb.events.event.length : 0,
           people: webStorageDb ? webStorageDb.people.person.length : 0,

@@ -2,41 +2,32 @@
   <v-flex xs12 md6>
     <div class="info-screen" v-show="activePerson">
 
-      <InfoField label="Name"       :model="activePerson.name"   icon="mdi-account"/>
-      <InfoField label="Birth Date" :model="activePerson.dob"    icon="mdi-calendar-today"/>
-      <InfoField label="Age"        :model="activePerson.age"    icon="mdi-update"/>
-      <InfoField label="Generation" :model="activePerson.genx"   icon="mdi-update"/>
-      <InfoField label="Father"     :model="activePerson.father" icon="mdi-account"/>
-      <InfoField label="Mother"     :model="activePerson.mother" icon="mdi-account"/>
+      <PersonField label="Name"       :model="activePerson"        icon="mdi-account" v-on:root-person="root" />
+      <InfoField   label="Birth Date" :model="activePerson.dob"    icon="mdi-calendar-today"/>
+      <InfoField   label="Age"        :model="activePerson.age"    icon="mdi-update"        />
+      <InfoField   label="Generation" :model="activePerson.genx"   icon="mdi-update"        />
+      <PersonField label="Father"     :model="activePerson.father" icon="mdi-account" v-on:root-person="root" />
+      <PersonField label="Mother"     :model="activePerson.mother" icon="mdi-account" v-on:root-person="root" />
 
        <v-card flat class="ma-2"
         v-for="(family, i) in activePerson.familys" :key="i"
         >
         <v-card-title>
-          <InfoField
+          <PersonField
             :label="relation(family)"
-            :model="spouse(activePerson, family).name"
+            :model="spouse(activePerson, family)"
             icon="mdi-human-male-female"
+            v-on:root-person="root"
           />
         </v-card-title>
         <v-card-text v-if="family.children.length">
-          <v-expansion-panels>
-            <v-expansion-panel>
-              <v-expansion-panel-header>Children</v-expansion-panel-header>
-              <v-expansion-panel-content>
-                <v-list nav rounded shaped>
-                  <v-list-item v-for="(child, j) in family.children" :key="j">
-                    <v-list-item-icon>
-                      <v-icon>mdi-face</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-content>
-                      <v-list-item-title v-text="child.name"></v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list>
-              </v-expansion-panel-content>
-            </v-expansion-panel>
-          </v-expansion-panels>
+          <v-list nav rounded shaped>
+            <v-list-item v-for="(child, j) in family.children" :key="j">
+              <v-list-item-content>
+                <PersonField label="Child" :model="child" icon="mdi-face" v-on:root-person="root" />
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
         </v-card-text>
       </v-card>
 
@@ -62,11 +53,13 @@
 <script>
 
   import InfoField from '@/components/InfoField';
+  import PersonField from '@/components/PersonField';
 
   export default {
 
     components: {
       InfoField,
+      PersonField,
     },
 
     props: {
@@ -92,6 +85,9 @@
           }
         }
         return 'Relation'
+      },
+      root ( id ) {
+        this.$emit('root-person', id);
       },
     },
 

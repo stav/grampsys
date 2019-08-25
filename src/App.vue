@@ -55,5 +55,11 @@
       log.store('App created: store:', this.$store)
     },
 
+    // beforeMount () {
+    // },
+
+    // mounted () {
+    // },
+
   }
 </script>

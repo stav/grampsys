@@ -1,43 +1,46 @@
 <template>
+  <v-flex>
 
-    <v-flex>
-      <v-treeview dense rounded hoverable activatable color="primary"
-        :items="items"
-        @update:active="activate"
-        >
-        <template v-slot:prepend="{ item, open }">
+    <v-btn color="secondary" @click="reset" class="mt-2 ml-2"> Reset </v-btn>
 
-          <v-icon>
-            {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
-          </v-icon>
+    <v-treeview dense rounded hoverable activatable color="primary"
+      :items="items"
+      @update:active="activate"
+      >
 
+      <template v-slot:prepend="{ item, open }">
+
+        <v-icon>
+          {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
+        </v-icon>
+
+        <v-chip
+          color="secondary" text-color="white" title="Generation"
+          >{{ item.gen }}
+        </v-chip>
+
+        <v-badge color="success" overlap title="descendants">
+          <template v-slot:badge>
+            <span v-text="item.desc" v-if="item.desc"></span>
+          </template>
           <v-chip
-            color="secondary" text-color="white" title="Generation"
-            >{{ item.gen }}
+            color="primary" text-color="white" title="Years since birth"
+            >{{ item.age }}
           </v-chip>
+        </v-badge>
 
-          <v-badge color="success" overlap title="descendants">
-            <template v-slot:badge>
-              <span v-text="item.desc" v-if="item.desc"></span>
-            </template>
-            <v-chip
-              color="primary" text-color="white" title="Years since birth"
-              >{{ item.age }}
-            </v-chip>
-          </v-badge>
+        <v-icon large color="grey">mdi-account</v-icon>
 
-          <v-icon large color="grey">mdi-account</v-icon>
+      </template>
 
-        </template>
+      <template v-slot:label="{ item }">
+        <span v-text="item.name"></span>
+        <span v-text="item.id" class="ml-2 secondary--text text--lighten-1" title="Gramps Id"></span>
+      </template>
 
-        <template v-slot:label="{ item }">
-          <span v-text="item.name"></span>
-          <span v-text="item.id" class="ml-2 secondary--text text--lighten-1" title="Gramps Id"></span>
-        </template>
+    </v-treeview>
 
-      </v-treeview>
-    </v-flex>
-
+  </v-flex>
 </template>
 
 <script>
@@ -51,19 +54,13 @@
     },
 
     methods: {
-      activate ( ids ) {
-        this.$emit('activate-person', ids);
+      activate ( id ) {
+        this.$emit('activate-person', id);
+      },
+      reset () {
+        this.$emit('root-person', this.$store.getters.familyPatronPerson.id);
       },
     },
-
-    // created () {
-    // },
-
-    // beforeMount () {
-    // },
-
-    // mounted () {
-    // },
 
   }
 </script>

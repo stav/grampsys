@@ -44,7 +44,11 @@ export default new Vuex.Store({
       else return true
     },
 
-    familyPatron ( state, getters ) {
+    familyPatronPerson ( state, getters ) {
+      return getOldestMalePerson( state.db, getters.events )
+    },
+
+    familyPatronMember ( state, getters ) {
       const patron = getOldestMalePerson( state.db, getters.events );
       return patron ? new Member( patron, getters ) : undefined
     },

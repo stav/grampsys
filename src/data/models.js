@@ -130,7 +130,7 @@ class Member
       const parents = getters.familyByHandle( person._.childof.hlink );
       if ( parents && parents[member] && parents[member].hlink ) {
         const parent = getters.personByHandle( parents[member].hlink );
-        return parent ? parent.name : null
+        return parent ? parent : null
       }
     }
   }
