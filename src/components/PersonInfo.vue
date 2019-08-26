@@ -4,6 +4,7 @@
 
       <PersonField icon="mdi-account"        label="Name"       :model="activePerson.name" :id="activePerson.id" v-on:root-person="root" />
       <InfoField   icon="mdi-calendar-today" label="Birth Date" :model="activePerson.dob"  />
+      <InfoField   icon="mdi-calendar-today" label="Death Date" :model="activePerson.dod"  />
       <InfoField   icon="mdi-update"         label="Age"        :model="activePerson.age"  />
       <InfoField   icon="mdi-update"         label="Generation" :model="activePerson.genx" />
       <PersonField icon="mdi-account"        label="Father"     :model="father.name"       :id="father.id"       v-on:root-person="root" />

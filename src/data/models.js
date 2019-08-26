@@ -12,7 +12,8 @@ class Person
     this._ = json;
     this.id = json.id;
     this.name = this._name();
-    this.dob = this._dob(events);
+    this.dob = this._date(events, 'Birth');
+    this.dod = this._date(events, 'Death');
     this.age = this._age();
     this.genx = this._generationTitle();
   }
@@ -29,12 +30,12 @@ class Person
     return `${name.first} ${lname()}`.trim()
   }
 
-  _dob (events)
+  _date ( events, type )
   {
     for (let eventref of u.toArray(this._.eventref)) {
       const hlink = eventref ? eventref.hlink : undefined;
       const event = events.get(hlink) || {};
-      if (event.type === 'Birth') {
+      if (event.type === type) {
         return event.dateval.val
       }
     }
@@ -85,6 +86,7 @@ class Member
     this.id = person.id;
     this.name = person.name;
     this.dob = person.dob;
+    this.dod = person.dod;
     this.age = person.age;
     this.genx = person.genx;
     this.gen = 0;
