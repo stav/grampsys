@@ -5,7 +5,7 @@
     v-model="model"
     v-show="model"
     :append-icon="icon"
-    prepend-inner-icon="mdi-circle-small"
+    prepend-icon="mdi-circle-small"
   ></v-text-field>
 
 </template>

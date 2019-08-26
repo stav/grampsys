@@ -2,11 +2,11 @@
 
   <v-text-field readonly outlined shaped hide-details class="ma-2"
     :label="label"
-    v-model="model.name"
-    v-if="model.id"
+    v-model="model"
+    v-show="model"
     :append-icon="icon"
-    prepend-inner-icon="mdi-arrow-left-bold"
-    @click:prepend-inner="root"
+    prepend-icon="mdi-arrow-left-bold"
+    @click:prepend="root"
   ></v-text-field>
 
 </template>
@@ -19,11 +19,12 @@
       label: String,
       model: [Object, String],
       icon: String,
+      id: String,
     },
 
     methods: {
       root () {
-        this.$emit('root-person', this.model.id);
+        this.$emit('root-person', this.id);
       }
     }
 

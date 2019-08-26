@@ -2,21 +2,22 @@
   <v-flex xs12 md6>
     <div class="info-screen" v-show="activePerson">
 
-      <PersonField label="Name"       :model="activePerson"        icon="mdi-account" v-on:root-person="root" />
-      <InfoField   label="Birth Date" :model="activePerson.dob"    icon="mdi-calendar-today"/>
-      <InfoField   label="Age"        :model="activePerson.age"    icon="mdi-update"        />
-      <InfoField   label="Generation" :model="activePerson.genx"   icon="mdi-update"        />
-      <PersonField label="Father"     :model="activePerson.father" icon="mdi-account" v-on:root-person="root" />
-      <PersonField label="Mother"     :model="activePerson.mother" icon="mdi-account" v-on:root-person="root" />
+      <PersonField icon="mdi-account"        label="Name"       :model="activePerson.name" :id="activePerson.id" v-on:root-person="root" />
+      <InfoField   icon="mdi-calendar-today" label="Birth Date" :model="activePerson.dob"  />
+      <InfoField   icon="mdi-update"         label="Age"        :model="activePerson.age"  />
+      <InfoField   icon="mdi-update"         label="Generation" :model="activePerson.genx" />
+      <PersonField icon="mdi-account"        label="Father"     :model="father.name"       :id="father.id"       v-on:root-person="root" />
+      <PersonField icon="mdi-account"        label="Mother"     :model="mother.name"       :id="mother.id"       v-on:root-person="root" />
 
        <v-card flat class="ma-2"
         v-for="(family, i) in activePerson.familys" :key="i"
         >
         <v-card-title>
           <PersonField
-            :label="relation(family)"
-            :model="spouse(activePerson, family)"
             icon="mdi-human-male-female"
+            :label="relation(family)"
+            :model="spouse(activePerson, family).name"
+            :id="spouse(activePerson, family).id"
             v-on:root-person="root"
           />
         </v-card-title>
@@ -24,7 +25,7 @@
           <v-list nav rounded shaped>
             <v-list-item v-for="(child, j) in family.children" :key="j">
               <v-list-item-content>
-                <PersonField label="Child" :model="child" icon="mdi-face" v-on:root-person="root" />
+                <PersonField icon="mdi-face" label="Child" :model="child.name" :id="child.id" v-on:root-person="root" />
               </v-list-item-content>
             </v-list-item>
           </v-list>
@@ -64,6 +65,15 @@
 
     props: {
       activePerson: [Object, String],
+    },
+
+    computed: {
+      father () {
+        return this.activePerson.father||{}
+      },
+      mother () {
+        return this.activePerson.mother||{}
+      },
     },
 
     methods: {
