@@ -69,7 +69,8 @@
     },
 
     created () {
-      this.root( this.$store.getters.familyPatronPerson.id )
+      if ( this.$store.getters.familyPatronPerson )
+        this.root( this.$store.getters.familyPatronPerson.id )
     },
 
   }

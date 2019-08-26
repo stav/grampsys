@@ -34,8 +34,8 @@
       </template>
 
       <template v-slot:label="{ item }">
-        <span v-text="item.name"></span>
-        <span v-text="item.id" class="ml-2 secondary--text text--lighten-1" title="Gramps Id"></span>
+        <span v-text="item.name" />
+        <span v-text="item.id" class="ml-2 secondary--text text--lighten-1" title="Gramps Id" />
       </template>
 
     </v-treeview>
@@ -44,8 +44,6 @@
 </template>
 
 <script>
-
-  import log from '@/data/log';
 
   export default {
 
@@ -58,7 +56,8 @@
         this.$emit('activate-person', id);
       },
       reset () {
-        this.$emit('root-person', this.$store.getters.familyPatronPerson.id);
+        if ( this.$store.getters.familyPatronPerson )
+          this.$emit('root-person', this.$store.getters.familyPatronPerson.id);
       },
     },
 
