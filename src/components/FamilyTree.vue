@@ -56,8 +56,7 @@
         this.$emit('activate-person', id);
       },
       reset () {
-        if ( this.$store.getters.familyPatronPerson )
-          this.$emit('root-person', this.$store.getters.familyPatronPerson.id);
+        this.$emit('root-reset');
       },
     },
 

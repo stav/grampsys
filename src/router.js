@@ -20,14 +20,19 @@ export default new Router({
       component: Tree
     },
     {
+      path: '/database',
+      name: 'database',
+      component: Database
+    },
+    {
       path: '/timeline',
       name: 'timeline',
       component: Timeline
     },
     {
-      path: '/database',
-      name: 'database',
-      component: Database
+      path: '/timeline/:tab',
+      props: true,
+      component: Timeline
     },
     // {
     //   path: '/about',

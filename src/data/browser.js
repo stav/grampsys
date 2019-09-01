@@ -3,7 +3,6 @@
  */
 
 function webStorageDatabaseFactory () {
-  // log.datafile('store setupDatabase')
   try {
     return JSON.parse( localStorage.getItem('datafile') ).database;
   }

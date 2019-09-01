@@ -2,7 +2,6 @@
   <v-card>
 
     <v-tabs icons-and-text v-model="currentTab">
-      <v-tabs-slider/>
       <v-tab href="#tab-1"> Dated    <v-icon>mdi-playlist-check</v-icon></v-tab>
       <v-tab href="#tab-2"> Unknown  <v-icon>mdi-playlist-edit </v-icon></v-tab>
       <v-tab href="#tab-3"> Everyone <v-icon>mdi-playlist-star </v-icon></v-tab>
@@ -39,6 +38,10 @@
       Timeline
     },
 
+    props: {
+      tab: String,
+    },
+
     data: () => ({
       currentTab: null,
     }),
@@ -62,6 +65,11 @@
           {index: 3, people: this.$store.getters.allPeople   , text: 'A chronological listing of all family members'},
         ]
       },
+    },
+
+    mounted () {
+      if ( this.tab )
+        this.currentTab = this.tab;
     },
 
   }

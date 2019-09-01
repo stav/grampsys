@@ -1,11 +1,11 @@
 <template>
   <v-layout wrap>
 
-    <FamilyTree :items="items" v-on:activate-person="activate" v-on:root-person="root" />
+    <FamilyTree :items="items" v-on:activate-person="activate" v-on:root-reset="reset" />
 
     <v-divider vertical />
 
-    <PersonInfo :activePerson="activePerson" v-on:root-person="root" />
+    <PersonInfo :activePerson="activePerson" v-on:root-person="rootId" />
 
   </v-layout>
 </template>
@@ -57,20 +57,32 @@
       activate ( ids ) {
         this.activePerson = ids[0] ? this.$store.getters.memberById( ids[0] ) : ''
       },
-      root ( id ) {
-        const patron = this.$store.getters.memberById( id );
-        let branch = {};
-        if ( patron ) {
-          branch = getBranch( patron );
-          setDescendants( branch )
+      rootId ( id ) {
+        this.root([{ id }])
+      },
+      root ( roots ) {
+        this.items = [];
+        for ( let root of roots ) {
+          const patron = this.$store.getters.memberById( root.id );
+          const ancestor = { gen: (root.gen ||0)-1 };
+          if ( patron ) {
+            let branch = getBranch( patron, ancestor );
+            setDescendants( branch )
+            this.items.push(  branch )
+          }
         }
-        this.items = [ branch ]
+      },
+      reset () {
+        if ( this.$store.getters.roots )
+          this.root( this.$store.getters.roots );
+
+        else if ( this.$store.getters.familyPatronPerson )
+          this.rootId( this.$store.getters.familyPatronPerson.id );
       },
     },
 
     created () {
-      if ( this.$store.getters.familyPatronPerson )
-        this.root( this.$store.getters.familyPatronPerson.id )
+      this.reset()
     },
 
   }

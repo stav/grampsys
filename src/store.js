@@ -115,6 +115,11 @@ export default new Vuex.Store({
       return event_map
     },
 
+    roots ( state ) {
+      if ( state.db && state.db.header && state.db.header.roots && state.db.header.roots )
+        return state.db.header.roots.root;
+    },
+
   },
 
   actions: {
