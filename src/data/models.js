@@ -1,7 +1,8 @@
 /*
  * Data models
  */
-import u from './utils';
+import u  from './utils';
+import dt from './time';
 
 
 class Person
@@ -14,7 +15,8 @@ class Person
     this.name = this._name();
     this.dob = this._date(events, 'Birth');
     this.dod = this._date(events, 'Death');
-    this.age = this._age();
+    this.age = this.dob ? dt.yearsDifference( this.dob ) : '';
+    this.aad = this.dod ? dt.yearsDifference( this.dob, this.dod ) : '';
     this.genx = this._generationTitle();
   }
 
@@ -39,25 +41,6 @@ class Person
         return event.dateval.val
       }
     }
-  }
-
-  _age ()
-  {
-    if (!this.dob) return '';
-
-    const today = new Date();
-    const birthDate = new Date(this.dob);
-
-    let yearsDifference = today.getFullYear() - birthDate.getFullYear();
-
-    if (
-      today.getMonth() < birthDate.getMonth() ||
-      (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate())
-    ) {
-      yearsDifference--;
-    }
-
-    return yearsDifference;
   }
 
   _generationTitle ()
@@ -88,6 +71,7 @@ class Member
     this.dob = person.dob;
     this.dod = person.dod;
     this.age = person.age;
+    this.aad = person.aad;
     this.genx = person.genx;
     this.gen = 0;
     // this.parents = [];
