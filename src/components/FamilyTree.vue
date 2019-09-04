@@ -1,7 +1,10 @@
 <template>
   <v-flex>
 
-    <v-btn color="secondary" @click="reset" class="mt-2 ml-2"> Reset </v-btn>
+    <v-btn large text icon class="ma-2" @click="clear" title="Clear">
+      <v-icon large color="grey darken-1">mdi-close-circle-outline</v-icon>
+    </v-btn>
+    <v-btn color="secondary" class="grey--text text--lighten-1 mt-1" @click="reset"> Reset </v-btn>
 
     <v-treeview dense rounded hoverable activatable color="primary"
       :items="items"
@@ -54,6 +57,9 @@
     methods: {
       activate ( id ) {
         this.$emit('activate-person', id);
+      },
+      clear () {
+        this.$emit('root-clear');
       },
       reset () {
         this.$emit('root-reset');

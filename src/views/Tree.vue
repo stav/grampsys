@@ -1,11 +1,11 @@
 <template>
   <v-layout wrap>
 
-    <FamilyTree :items="items" v-on:activate-person="activate" v-on:root-reset="reset" />
+    <FamilyTree :items="items" @activate-person="activate" @root-reset="reset" @root-clear="clear" />
 
     <v-divider vertical />
 
-    <PersonInfo :activePerson="activePerson" v-on:root-person="rootId" />
+    <PersonInfo :activePerson="activePerson" @root-person="rootId" />
 
   </v-layout>
 </template>
@@ -61,7 +61,6 @@
         this.root([{ id }])
       },
       root ( roots ) {
-        this.items = [];
         for ( let root of roots ) {
           const patron = this.$store.getters.memberById( root.id );
           const ancestor = { gen: (root.gen ||0)-1 };
@@ -71,6 +70,9 @@
             this.items.push(  branch )
           }
         }
+      },
+      clear () {
+        this.items = [];
       },
       reset () {
         if ( this.$store.getters.roots )
