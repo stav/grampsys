@@ -17,7 +17,7 @@ class Person
     this.dod = this._date(events, 'Death');
     this.age = this.dob ? dt.yearsDifference( this.dob ) : '';
     this.aad = this.dod ? dt.yearsDifference( this.dob, this.dod ) : '';
-    this.genx = this._generationTitle();
+    this.gen = this._generationTitle();
   }
 
   _name ()
@@ -72,8 +72,7 @@ class Member
     this.dod = person.dod;
     this.age = person.age;
     this.aad = person.aad;
-    this.genx = person.genx;
-    this.gen = 0;
+    this.gen = person.gen;
     // this.parents = [];
     this.familys = [...this._familiesGenerator( getters )];
     this.father = this.getFather( person, getters );
