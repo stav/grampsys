@@ -1,8 +1,8 @@
 /*
  * Data models
  */
-import u  from './utils';
-import dt from './time';
+import u  from './utils'
+import dt from './time'
 
 
 class Person
@@ -75,8 +75,7 @@ class Member
     this.genx = person.genx;
     this.gen = 0;
     // this.parents = [];
-    this.familys = [...this._familiesGenerator( getters )]
-    this.children = [...this._childrenGenerator( getters )];
+    this.familys = [...this._familiesGenerator( getters )];
     this.father = this.getFather( person, getters );
     this.mother = this.getMother( person, getters );
   }
@@ -99,7 +98,7 @@ class Member
       const
         family = getters.familyByHandle( parentin.hlink ),
         children = u.toArray( family ? family.childref : [] ),
-        childBranches = children.map( ref => getters.personByHandle( ref.hlink ) );
+        childBranches = children.map( ref => getters.memberByHandle( ref.hlink ) );
       family.children = childBranches.sort( (a, b) => a.age < b.age );
       yield family
     }
@@ -133,6 +132,8 @@ class Member
 
 
 export {
+
   Member,
   Person,
+
 }

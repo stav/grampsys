@@ -5,6 +5,7 @@ import { webStorageDatabaseFactory } from '@/data/browser';
 import { database as publicDatabase } from '../public/gramps.json';
 
 import log from '@/data/log';
+import u  from '@/data/utils';
 
 Vue.use(Vuex)
 
@@ -15,8 +16,41 @@ function getOldestMalePerson ( db, events ) {
     mapped = people.map( person => new Person(person, events) ),
     soborn = mapped.filter( person => person.dob ),
     sorted = soborn.sort( (a, b) => ('' + a.dob).localeCompare(b.dob) );
-
   return sorted[0]
+}
+
+function formFamilies ( getters ) {
+  const familys = getters.totalFamilys;
+  log.object( 'store formFamilies: familys', familys )
+
+  function date( family ) {
+    let date = '';
+
+    if ( family.mother && family.mother.hlink ) {
+      u.extend( family.mother, getters.personByHandle( family.mother.hlink ) )
+      if ( family.mother.dob )
+        date = family.mother.dob;
+    }
+    if ( family.father && family.father.hlink ) {
+      u.extend( family.father, getters.personByHandle( family.father.hlink ) )
+      if ( family.father.dob ) {
+        if ( !family.mother || !family.mother.dob || ( family.father.dob < family.mother.dob ) )
+          date = family.father.dob;
+      }
+    }
+    return date
+  }
+
+  for ( let family of familys ) {
+    // Build up the children
+    const
+      children = u.toArray( family ? family.childref : [] ),
+      childBranches = children.map( ref => getters.memberByHandle( ref.hlink ) );
+    family.children = childBranches.sort( (a, b) => a.age < b.age );
+
+    // Set the family date to the birth date of the oldest parent
+    family.date = date( family );
+  }
 }
 
 export default new Vuex.Store({
@@ -57,8 +91,16 @@ export default new Vuex.Store({
       return ( id ) => new Member( new Person(state.db.people.person.find( p => p.id === id ), getters.events), getters )
     },
 
+    memberByHandle ( state, getters ) {
+      return ( handle ) => new Member( new Person(state.db.people.person.find( p => p.handle === handle ), getters.events), getters )
+    },
+
     personByHandle ( state, getters ) {
       return ( handle ) => new Person(state.db.people.person.find( p => p.handle === handle ), getters.events)
+    },
+
+    familyById ( state ) {
+      return ( id ) => state.db.families.family.find( f => f.id === id )
     },
 
     familyByHandle ( state ) {
@@ -120,6 +162,21 @@ export default new Vuex.Store({
         return state.db.header.roots.root;
     },
 
+    totalFamilys ( state ) {
+      try {
+        return state.db.families.family
+      }
+      catch (e) {
+        return []
+      }
+    },
+
+    oldestFamily ( state, getters) {
+      return getters.totalFamilys
+        .filter( family => family.date )
+        .sort( (a, b) => a.date > b.date )[0];
+    }
+
   },
 
   actions: {
@@ -138,7 +195,9 @@ export default new Vuex.Store({
       else {
         // We need to upload a database file
         console.log('No data found, click the upload button to upload a gramps JSON export')
+        return
       }
+      formFamilies( getters )
     },
 
     loadDataFile ( {commit}, datafile ) {
