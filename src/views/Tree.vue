@@ -19,6 +19,7 @@
     return {
       id: member.id,
       name: member.name,
+      type: 'INDIVIDUAL',
       children: [...member.familys.map( family => getFamilyBranch( family ) )],
       familys: member.familys,
       gen: member.gen,
@@ -33,6 +34,8 @@
       id: family.id,
       name: `${father}, ${mother}`,
       type: 'FAMILY',
+      father: family.father,
+      mother: family.mother,
       children: [...family.children.map( child => getMemberBranch( child ) )],
       familys: [],
       gen: family.gen,
@@ -70,7 +73,7 @@
 
     methods: {
       activate ( ids ) {
-        if ( ids.length && ids[0].startsWith('I') ) {
+        if ( ids.length && ids[0] && ids[0].startsWith('I') ) {
           this.activePerson = this.$store.getters.memberById( ids[0] );
         }
         else

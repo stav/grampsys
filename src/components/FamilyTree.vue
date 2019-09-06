@@ -34,8 +34,17 @@
       </template>
 
       <template v-slot:label="{ item }">
-        <span v-text="item.name" />
-        <span v-text="item.id" class="ml-2 secondary--text text--lighten-1" title="Gramps Id" />
+        <div>
+          <div v-if="item.type==='INDIVIDUAL'">
+            <span v-text="item.name" />
+            <span v-text="item.id" class="ml-2 secondary--text text--lighten-1" title="Gramps Id" />
+          </div>
+          <div v-if="item.type==='FAMILY'">
+            <v-btn color="red" @click.stop="activateParent(item.father)" v-text="item.father && item.father.name" class="mr-1" />
+            <v-btn color="blue" @click.stop="activateParent(item.mother)" v-text="item.mother && item.mother.name" />
+            <span v-text="item.id" class="ml-2 secondary--text text--lighten-1" title="Gramps Id" />
+          </div>
+        </div>
       </template>
 
     </v-treeview>
@@ -52,6 +61,10 @@
     },
 
     methods: {
+      activateParent ( parent ) {
+        if ( parent )
+          this.activate([ parent.id ]);
+      },
       activate ( id ) {
         this.$emit('activate-person', id);
       },
