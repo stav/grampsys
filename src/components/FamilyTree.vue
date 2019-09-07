@@ -8,9 +8,9 @@
       <v-btn color="secondary" class="grey--text text--lighten-1 mt-1" @click="reset"> Reset </v-btn>
     </div>
 
-    <v-treeview dense rounded hoverable activatable color="primary"
+    <v-treeview dense rounded hoverable color="primary"
+      :active="active"
       :items="items"
-      @update:active="activate"
       >
 
       <template v-slot:prepend="{ item, open }">
@@ -36,12 +36,12 @@
       <template v-slot:label="{ item }">
         <div>
           <div v-if="item.type==='INDIVIDUAL'">
-            <span v-text="item.name" />
+            <span v-text="item.name" @click.stop="activate(item.id)" />
             <span v-text="item.id" class="ml-2 secondary--text text--lighten-1" title="Gramps Id" />
           </div>
           <div v-if="item.type==='FAMILY'">
-            <v-btn color="red" @click.stop="activateParent(item.father)" v-text="item.father && item.father.name" class="mr-1" />
-            <v-btn color="blue" @click.stop="activateParent(item.mother)" v-text="item.mother && item.mother.name" />
+            <v-btn color="red" @click.stop="activate(item.father.id)" v-text="item.father.name" class="mr-1" v-if="item.father" />
+            <v-btn color="blue" @click.stop="activate(item.mother.id)" v-text="item.mother.name" v-if="item.mother" />
             <span v-text="item.id" class="ml-2 secondary--text text--lighten-1" title="Gramps Id" />
           </div>
         </div>
@@ -60,13 +60,14 @@
       items: Array,
     },
 
+    data: () => ({
+      active: [],
+    }),
+
     methods: {
-      activateParent ( parent ) {
-        if ( parent )
-          this.activate([ parent.id ]);
-      },
       activate ( id ) {
-        this.$emit('activate-person', id);
+        this.active = [ id ];
+        this.$emit('activate-person', this.active );
       },
       clear () {
         this.$emit('root-clear');
@@ -91,5 +92,8 @@
   .v-treeview {
     position: sticky;
     top: 7px;
+  }
+  .v-treeview-node__label {
+    cursor: pointer;
   }
 </style>
