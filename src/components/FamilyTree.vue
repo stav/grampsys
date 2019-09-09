@@ -40,9 +40,28 @@
             <span v-text="item.id" class="ml-2 secondary--text text--lighten-1" title="Gramps Id" />
           </div>
           <div v-if="item.type==='FAMILY'">
-            <v-btn color="red" @click.stop="activate(item.father.id)" v-text="item.father.name" class="mr-1" v-if="item.father" />
-            <v-btn color="blue" @click.stop="activate(item.mother.id)" v-text="item.mother.name" v-if="item.mother" />
-            <span v-text="item.id" class="ml-2 secondary--text text--lighten-1" title="Gramps Id" />
+            <v-card class="d-flex flex-wrap">
+
+              <v-btn outlined color="red" class="mr-1"
+                @click.stop="activate(item.father.id)"
+                :title="item.father.name"
+                v-if="item.father"
+                >
+                <v-icon left>mdi-face</v-icon>
+                {{ item.father.name }}
+              </v-btn>
+
+              <v-btn outlined color="blue" class="mr-1"
+                @click.stop="activate(item.mother.id)"
+                :title="item.mother.name"
+                v-if="item.mother"
+                >
+                <v-icon left>mdi-face-woman</v-icon>
+                {{ item.mother.name }}
+              </v-btn>
+
+              <span v-text="item.id" class="ml-2 secondary--text text--lighten-1" title="Gramps Id" />
+            </v-card>
           </div>
         </div>
       </template>
