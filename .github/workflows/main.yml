@@ -1,0 +1,40 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Setup Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Build
+      run: |
+        npm install
+        npm run build --if-present
+
+    - name: Position
+      run: mv dist htdocs
+
+    - name: Deploy
+      uses: "appleboy/scp-action@master"
+      env:
+        HOST: ${{ secrets.COWBOY_HOST }}
+        USERNAME: ${{ secrets.COWBOY_USER }}
+        PORT: "22"
+        PASSWORD: ${{ secrets.COWBOY_PASS }}
+        SOURCE: "htdocs,!htdocs/gramps.json"
+        TARGET: ${{ secrets.COWBOY_FAMILY }}

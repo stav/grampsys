@@ -26,7 +26,7 @@
       <v-sheet class="pa-4 primary">
         <v-text-field flat clearable solo-inverted hide-details
           v-model="search"
-          label="Search Company Directory"
+          label="Search Family Tree"
           clear-icon="mdi-close-circle-outline"
         ></v-text-field>
       </v-sheet>
