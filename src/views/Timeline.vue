@@ -53,7 +53,7 @@
           const dates_new = [...Array(20)].map( (_,i) => dateObject( i + 2000 ) );
           const dates = [...dates_old, ...dates_new];
           const people = this.$store.getters.bornPeople;
-          return [ ...dates, ...people ].sort( (a, b) => a.dob > b.dob )
+          return [ ...dates, ...people ].sort( (a, b) => a.dob > b.dob ? 1 : -1 )
         }
         else
           return []
