@@ -38,7 +38,9 @@
       "plugin:vue/essential",
       "eslint:recommended"
     ],
-    "rules": {},
+    "rules": {
+      "no-irregular-whitespace": ["warn", { "skipComments": true }]
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }

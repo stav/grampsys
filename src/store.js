@@ -68,7 +68,7 @@ export default new Vuex.Store({
       return state.db === null
     },
 
-    publicDatabaseEmpty ( state ) {
+    publicDatabaseEmpty () {
       if (
         publicDatabase &&
         publicDatabase.events   && publicDatabase.events.event    && publicDatabase.events.event.length  &&
@@ -194,7 +194,7 @@ export default new Vuex.Store({
       }
       else {
         // We need to upload a database file
-        console.log('No data found, click the upload button to upload a gramps JSON export')
+        // console.log('No data found, click the upload button to upload a gramps JSON export')
         return
       }
       formFamilies( getters )
@@ -206,7 +206,7 @@ export default new Vuex.Store({
         db = JSON.parse( datafile ).database;
       }
       catch (e) {
-        console.log('store loadDataFile:', e, 'Cannot load datafile', datafile)
+        // console.log('store loadDataFile:', e, 'Cannot load datafile', datafile)
         return
       }
       commit('loadDatabase', db)
@@ -219,7 +219,7 @@ export default new Vuex.Store({
   mutations: {
 
     loadDatabase ( state, database ) {
-      console.log('store loadDatabase: database', database)
+      // console.log('store loadDatabase: database', database)
       state.db = database;
       // this.dispatch('queueInfo', 'db updated');
     },
@@ -229,19 +229,19 @@ export default new Vuex.Store({
     },
 
     loadPublicDatabase ( state ) {
-      console.log('store loadPublicDatabase: publicDatabase', publicDatabase)
+      // console.log('store loadPublicDatabase: publicDatabase', publicDatabase)
       // const database = { header: 3, events: 100, people: 32, families: 80, danuek: 'winter' };
       state.db = publicDatabase;
     },
 
     loadWebStorageDatabase ( state , db) {
-      console.log('store loadWebStorageDatabase: db', db)
+      // console.log('store loadWebStorageDatabase: db', db)
       state.webStorageDatabase = db;
     },
 
     webStorageLoad ( state ) {
       const webStorageDb = webStorageDatabaseFactory();
-      console.log('store webStorageLoad: webStorageDb', webStorageDb)
+      // console.log('store webStorageLoad: webStorageDb', webStorageDb)
       if ( webStorageDb )
         state.db = webStorageDb;
     },

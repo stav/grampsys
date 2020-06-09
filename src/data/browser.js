@@ -6,7 +6,9 @@ function webStorageDatabaseFactory () {
   try {
     return JSON.parse( localStorage.getItem('datafile') ).database;
   }
-  catch (e) {}
+  catch (e) {
+    // continue regardless of error
+  }
 }
 
 export {
