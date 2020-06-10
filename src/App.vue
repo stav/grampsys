@@ -27,7 +27,7 @@
     </v-content>
 
     <v-footer app>
-      <span>&copy; 2019 Steven Almeroth</span>
+      <span>&copy; 2020 Steven Almeroth</span>
     </v-footer>
 
   </v-app>
