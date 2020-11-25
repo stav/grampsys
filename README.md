@@ -11,44 +11,29 @@ A family tree viewer for [Gramps](https://gramps-project.org/). The data must be
 * ![Gramps Db Nav   ](https://raw.githubusercontent.com/stav/stav.github.io/master/images/database-nav.png)
 * ![Gramps Tree     ](https://raw.githubusercontent.com/stav/stav.github.io/master/images/tree.png)
 
-## Development
+## Project setup
+```
+yarn install
+```
+
+### Compiles and hot-reloads for development
+```
+yarn serve
+```
+
+### Compiles and minifies for production
+```
+yarn build
+```
+
+### Lints and fixes files
+```
+yarn lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## Data
 
 node ./xml2json.js
-
-npm install @vue/cli -g
-
-vue create almeroth
-
-vue add vuetify
-
-npm install @mdi/font -D
-
-npm run serve
-
-### Project setup
-```
-npm install
-```
-
-#### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-#### Compiles and minifies for production
-```
-npm run build
-```
-
-#### Run your tests
-```
-npm run test
-```
-
-#### Lints and fixes files
-```
-npm run lint
-```
-
-#### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
