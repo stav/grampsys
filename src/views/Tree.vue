@@ -1,11 +1,11 @@
 <template>
   <v-layout wrap>
 
-    <FamilyTree :items="items" @activate-person="activate" @root-reset="reset" @root-clear="clear" />
+    <FamilyTree :items="items" @root-reset="reset" @root-clear="clear" />
 
     <v-divider vertical />
 
-    <PersonInfo :activePerson="activePerson" @root-person="rootId" />
+    <PersonInfo @root-person="rootId" />
 
   </v-layout>
 </template>
@@ -67,18 +67,10 @@
     },
 
     data: () => ({
-      activePerson: '',
       items: [],
     }),
 
     methods: {
-      activate ( ids ) {
-        if ( ids.length && ids[0] && ids[0].startsWith('I') ) {
-          this.activePerson = this.$store.getters.memberById( ids[0] );
-        }
-        else
-          this.activePerson = '';
-      },
       rootId ( id ) {
         this.rootRoots([{ id }])
       },

@@ -71,4 +71,10 @@ export default {
     localStorage.setItem('datafile', datafile)
   },
 
+  activatePerson ({getters, commit}, id) {
+    if ( id.startsWith('I') ) { // Individual
+      commit('activatePerson', getters.memberById( id ))
+    }
+  },
+
 }

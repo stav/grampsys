@@ -36,4 +36,8 @@ export default {
     localStorage.removeItem('datafile')
   },
 
+  activatePerson ( state, person ) {
+    state.activePerson = person
+  },
+
 }
