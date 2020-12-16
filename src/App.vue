@@ -26,8 +26,10 @@
       </v-fade-transition>
     </v-content>
 
-    <v-footer app>
+    <v-footer app absolute>
       <span>&copy; 2020 Steven Almeroth</span>
+      <v-spacer />
+      v2.1
     </v-footer>
 
   </v-app>
