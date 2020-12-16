@@ -117,7 +117,7 @@
     methods: {
       activate ( id ) {
         this.active = [ id ];
-        this.$emit('activate-person', this.active );
+        this.$store.dispatch('activatePerson', id)
       },
       clear () {
         this.$emit('root-clear');

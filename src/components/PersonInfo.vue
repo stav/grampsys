@@ -65,11 +65,10 @@
       PersonField,
     },
 
-    props: {
-      activePerson: [Object, String],
-    },
-
     computed: {
+      activePerson () {
+        return this.$store.state.activePerson
+      },
       father () {
         return this.activePerson.father||{}
       },
