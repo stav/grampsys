@@ -20,16 +20,18 @@
       <DatabaseLoader/>
     </v-app-bar>
 
-    <v-content>
-      <v-fade-transition mode="out-in">
-        <router-view/>
-      </v-fade-transition>
-    </v-content>
+    <v-main>
+      <v-container fluid>
+        <v-fade-transition mode="out-in">
+          <router-view />
+        </v-fade-transition>
+      </v-container>
+    </v-main>
 
     <v-footer app absolute>
       <span>&copy; 2020 Steven Almeroth</span>
       <v-spacer />
-      v2.1
+      v2.1.1
     </v-footer>
 
   </v-app>
