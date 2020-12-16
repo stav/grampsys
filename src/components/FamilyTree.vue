@@ -4,19 +4,19 @@
     <div class="family-tree">
 
       <v-btn large text icon @click="clear" title="Clear">
-        <v-icon large color="grey darken-1">mdi-close-circle-outline</v-icon>
+        <v-icon large color="grey darken-1" v-text="mdiCloseCircleOutline" />
       </v-btn>
 
       <v-btn large text icon @click="reset" title="Reset">
-        <v-icon large color="grey darken-1">mdi-folder-sync-outline</v-icon>
+        <v-icon large color="grey darken-1" v-text="mdiFolderSyncOutline" />
       </v-btn>
 
       <v-btn large text icon @click="$refs.treeview.updateAll(true)" title="Open All">
-        <v-icon large color="grey darken-1">mdi-folder-open-outline</v-icon>
+        <v-icon large color="grey darken-1" v-text="mdiFolderOpenOutline" />
       </v-btn>
 
       <v-btn large text icon @click="$refs.treeview.updateAll(false)" title="Close All">
-        <v-icon large color="grey darken-1">mdi-folder-outline</v-icon>
+        <v-icon large color="grey darken-1" v-text="mdiFolderOutline" />
       </v-btn>
 
     </div>
@@ -27,7 +27,7 @@
         <v-text-field flat clearable solo-inverted hide-details
           v-model="search"
           label="Search Family Tree"
-          clear-icon="mdi-close-circle-outline"
+          :clear-icon="mdiCloseCircleOutline"
         ></v-text-field>
       </v-sheet>
 
@@ -42,7 +42,7 @@
 
           <template v-slot:prepend="{ item, open }">
 
-            <v-icon>{{ open ? 'mdi-folder-open' : 'mdi-folder' }}</v-icon>
+            <v-icon>{{ open ? mdiFolderOpen : mdiFolder }}</v-icon>
 
             <v-badge color="success" overlap title="descendants">
               <template v-slot:badge>
@@ -55,7 +55,7 @@
             </v-badge>
 
             <v-icon large color="grey" class="ml-1"
-              v-text="item.type==='FAMILY' ? 'mdi-human-male-female' : 'mdi-account'"
+              v-text="item.type==='FAMILY' ? mdiHumanMaleFemale : mdiAccount"
             />
 
           </template>
@@ -74,8 +74,7 @@
                     :title="item.father.name"
                     v-if="item.father"
                     >
-                    <v-icon left>mdi-face</v-icon>
-                    {{ item.father.name }}
+                    <v-icon left v-text="mdiFace" /> {{ item.father.name }}
                   </v-btn>
 
                   <v-btn outlined color="blue" class="mr-1"
@@ -83,8 +82,7 @@
                     :title="item.mother.name"
                     v-if="item.mother"
                     >
-                    <v-icon left>mdi-face-woman</v-icon>
-                    {{ item.mother.name }}
+                    <v-icon left v-text="mdiFaceWoman" /> {{ item.mother.name }}
                   </v-btn>
 
                   <span v-text="item.id" class="ml-2 secondary--text text--lighten-1" title="Gramps Id" />
@@ -101,6 +99,18 @@
 </template>
 
 <script>
+  import {
+    mdiAccount,
+    mdiCloseCircleOutline,
+    mdiFace,
+    mdiFaceWoman,
+    mdiFolder,
+    mdiFolderOpen,
+    mdiFolderOpenOutline,
+    mdiFolderOutline,
+    mdiFolderSyncOutline,
+    mdiHumanMaleFemale,
+  } from '@mdi/js'
 
   export default {
 
@@ -109,6 +119,16 @@
     },
 
     data: () => ({
+      mdiAccount,
+      mdiCloseCircleOutline,
+      mdiFace,
+      mdiFaceWoman,
+      mdiFolder,
+      mdiFolderOpen,
+      mdiFolderOpenOutline,
+      mdiFolderOutline,
+      mdiFolderSyncOutline,
+      mdiHumanMaleFemale,
       open: [],
       active: [],
       search: null,

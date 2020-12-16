@@ -1,16 +1,15 @@
 <template>
-
   <v-text-field readonly outlined shaped hide-details class="ma-2"
     :label="label"
-    v-model="model"
-    v-show="model"
+    v-model="localModel"
+    v-show="localModel"
     :append-icon="icon"
-    prepend-icon="mdi-circle-small"
+    :prepend-icon="mdiCircleSmall"
   ></v-text-field>
-
 </template>
 
 <script>
+  import { mdiCircleSmall } from '@mdi/js'
 
   export default {
 
@@ -18,6 +17,16 @@
       label: String,
       model: [String, Number],
       icon: String,
+    },
+
+    data: () => ({
+      mdiCircleSmall,
+    }),
+
+    computed: {
+      localModel () {
+        return this.model
+      },
     },
 
   }

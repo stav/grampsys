@@ -2,21 +2,21 @@
   <v-flex xs12 md6>
     <div class="info-screen" v-show="activePerson">
 
-      <PersonField icon="mdi-account"        label="Name"         :model="activePerson.name" :id="activePerson.id" @root-person="root" />
-      <InfoField   icon="mdi-calendar-today" label="Birth Date"   :model="activePerson.dob" />
-      <InfoField   icon="mdi-calendar-today" label="Death Date"   :model="activePerson.dod" />
-      <InfoField   icon="mdi-update"         label="Age at Death" :model="activePerson.aad" />
-      <InfoField   icon="mdi-update"         label="Age"          :model="activePerson.age" />
-      <InfoField   icon="mdi-update"         label="Generation"   :model="activePerson.gen" />
-      <PersonField icon="mdi-account"        label="Father"       :model="father.name"       :id="father.id"       @root-person="root" />
-      <PersonField icon="mdi-account"        label="Mother"       :model="mother.name"       :id="mother.id"       @root-person="root" />
+      <PersonField :icon="mdiAccount"       label="Name"         :model="activePerson.name" :id="activePerson.id" @root-person="root" />
+      <InfoField   :icon="mdiCalendarToday" label="Birth Date"   :model="activePerson.dob" />
+      <InfoField   :icon="mdiCalendarToday" label="Death Date"   :model="activePerson.dod" />
+      <InfoField   :icon="mdiUpdate"        label="Age at Death" :model="activePerson.aad" />
+      <InfoField   :icon="mdiUpdate"        label="Age"          :model="activePerson.age" />
+      <InfoField   :icon="mdiUpdate"        label="Generation"   :model="activePerson.gen" />
+      <PersonField :icon="mdiAccount"       label="Father"       :model="father.name"       :id="father.id"       @root-person="root" />
+      <PersonField :icon="mdiAccount"       label="Mother"       :model="mother.name"       :id="mother.id"       @root-person="root" />
 
        <v-card flat class="ma-2"
         v-for="(family, i) in activePerson.familys" :key="i"
         >
         <v-card-title>
           <PersonField
-            icon="mdi-human-male-female"
+            :icon="mdiHumanMaleFemale"
             :label="relation(family)"
             :model="spouse(activePerson, family).name"
             :id="spouse(activePerson, family).id"
@@ -27,7 +27,7 @@
           <v-list nav rounded shaped>
             <v-list-item v-for="(child, j) in family.children" :key="j">
               <v-list-item-content>
-                <PersonField icon="mdi-face" label="Child" :model="child.name" :id="child.id" @root-person="root" />
+                <PersonField :icon="mdiFace" label="Child" :model="child.name" :id="child.id" @root-person="root" />
               </v-list-item-content>
             </v-list-item>
           </v-list>
@@ -54,9 +54,15 @@
 </template>
 
 <script>
-
   import InfoField from '@/components/InfoField';
   import PersonField from '@/components/PersonField';
+  import {
+    mdiAccount,
+    mdiCalendarToday,
+    mdiFace,
+    mdiHumanMaleFemale,
+    mdiUpdate,
+} from '@mdi/js'
 
   export default {
 
@@ -64,6 +70,14 @@
       InfoField,
       PersonField,
     },
+
+    data: () => ({
+      mdiAccount,
+      mdiCalendarToday,
+      mdiFace,
+      mdiHumanMaleFemale,
+      mdiUpdate,
+    }),
 
     computed: {
       activePerson () {

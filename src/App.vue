@@ -3,17 +3,17 @@
 
     <v-navigation-drawer app clipped v-model="drawer">
       <v-list dense>
-        <NavItem title="Home"     target="/"         icon="mdi-home"           />
-        <NavItem title="Tree"     target="/tree"     icon="mdi-account-details"/>
-        <NavItem title="Timeline" target="/timeline" icon="mdi-playlist-check" />
-        <NavItem title="Database" target="/database" icon="mdi-folder-account" />
+        <NavItem title="Home"     target="/"         :icon="mdiHome"           />
+        <NavItem title="Tree"     target="/tree"     :icon="mdiAccountDetails" />
+        <NavItem title="Timeline" target="/timeline" :icon="mdiPlaylistCheck"  />
+        <NavItem title="Database" target="/database" :icon="mdiFolderAccount"  />
       </v-list>
     </v-navigation-drawer>
 
     <v-app-bar app dense clipped-left collapse-on-scroll color="secondary">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
-      <v-btn icon to="/" title="Home"><v-icon>mdi-home</v-icon></v-btn>
-      <v-toolbar-title icon="mdi-home">
+      <v-btn icon to="/" title="Home"><v-icon v-text="mdiHome" /></v-btn>
+      <v-toolbar-title :icon="mdiHome">
         <span class="white--text">Almeroth Family Tree</span>
       </v-toolbar-title>
       <v-spacer/>
@@ -36,7 +36,8 @@
 <script>
   import NavItem from '@/components/NavItem'
   import DatabaseLoader from '@/components/DatabaseLoader'
-  import log from '@/data/log';
+  import { mdiHome, mdiAccountDetails, mdiPlaylistCheck, mdiFolderAccount } from '@mdi/js'
+  import log from '@/data/log'
 
   export default {
 
@@ -47,6 +48,10 @@
 
     data: () => ({
       drawer: null,
+      mdiAccountDetails,
+      mdiFolderAccount,
+      mdiPlaylistCheck,
+      mdiHome,
     }),
 
     created () {
@@ -54,12 +59,6 @@
       this.$store.dispatch('setupDatabase')
       log.store('App created: store:', this.$store)
     },
-
-    // beforeMount () {
-    // },
-
-    // mounted () {
-    // },
 
   }
 </script>

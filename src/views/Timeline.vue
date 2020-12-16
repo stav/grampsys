@@ -2,9 +2,9 @@
   <v-card>
 
     <v-tabs icons-and-text v-model="currentTab">
-      <v-tab href="#tab-1"> Dated    <v-icon>mdi-playlist-check</v-icon></v-tab>
-      <v-tab href="#tab-2"> Unknown  <v-icon>mdi-playlist-edit </v-icon></v-tab>
-      <v-tab href="#tab-3"> Everyone <v-icon>mdi-playlist-star </v-icon></v-tab>
+      <v-tab href="#tab-1"> Dated    <v-icon v-text="mdiPlaylistCheck" /></v-tab>
+      <v-tab href="#tab-2"> Unknown  <v-icon v-text="mdiPlaylistEdit" /></v-tab>
+      <v-tab href="#tab-3"> Everyone <v-icon v-text="mdiPlaylistStar" /></v-tab>
     </v-tabs>
 
     <v-tabs-items v-model="currentTab">
@@ -23,6 +23,7 @@
 
 <script>
   import Timeline from '@/components/Timeline'
+  import { mdiPlaylistCheck, mdiPlaylistEdit, mdiPlaylistStar } from '@mdi/js'
 
   function dateObject ( year ) {
     return {
@@ -44,6 +45,9 @@
 
     data: () => ({
       currentTab: null,
+      mdiPlaylistCheck,
+      mdiPlaylistEdit,
+      mdiPlaylistStar,
     }),
 
     computed: {
@@ -61,8 +65,8 @@
       tabs () {
         return [
           {index: 1, people: this.bornPeople                 , text: 'A chronological listing of family members with a known birthdate, or at least a birth year'},
-          {index: 2, people: this.$store.getters.unbornPeople, text: 'A chronological listing of family members without a known birthdate'},
-          {index: 3, people: this.$store.getters.allPeople   , text: 'A chronological listing of all family members'},
+          {index: 2, people: this.$store.getters.unbornPeople, text: 'A listing of family members without a known birthdate'},
+          {index: 3, people: this.$store.getters.allPeople   , text: 'A listing of all family members'},
         ]
       },
     },

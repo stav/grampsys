@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-timeline align-top dense>
-      <v-timeline-item color="success lighten-1" icon="mdi-account"
+      <v-timeline-item color="success lighten-1" :icon="mdiAccount"
         v-for="(node, i) in nodes" :key="i"
         >
         <v-card :color="color(node)">
@@ -20,11 +20,17 @@
 </template>
 
 <script>
+  import { mdiAccount } from '@mdi/js'
+
   export default {
 
     props: {
       nodes: Array,
     },
+
+    data: () => ({
+      mdiAccount,
+    }),
 
     methods: {
       color ( node ) {
