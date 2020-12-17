@@ -1,12 +1,7 @@
 <template>
   <v-layout wrap>
-
     <FamilyTree :items="items" @root-reset="reset" @root-clear="clear" />
-
-    <v-divider vertical />
-
     <PersonInfo @root-person="rootId" />
-
   </v-layout>
 </template>
 

@@ -4,13 +4,15 @@
     v-model="localModel"
     v-show="localModel"
     :append-icon="icon"
+    :append-outer-icon="closeIcon"
     :prepend-icon="mdiArrowLeftBold"
     @click:prepend="root"
+    @click:append-outer="clearActivePerson"
   ></v-text-field>
 </template>
 
 <script>
-  import { mdiArrowLeftBold } from '@mdi/js'
+  import { mdiArrowLeftBold, mdiCloseCircle } from '@mdi/js'
 
   export default {
 
@@ -23,17 +25,24 @@
 
     data: () => ({
       mdiArrowLeftBold,
+      mdiCloseCircle,
     }),
 
     computed: {
       localModel () {
         return this.model
       },
+      closeIcon () {
+        return this.label === 'Name' ? mdiCloseCircle : null
+      },
     },
 
     methods: {
       root () {
-        this.$emit('root-person', this.id);
+        this.$emit('root-person', this.id)
+      },
+      clearActivePerson () {
+        this.$store.commit('activatePerson', '')
       }
     }
 

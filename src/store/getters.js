@@ -106,9 +106,28 @@ export default {
     return event_map
   },
 
+  /*
+  ** roots
+  **
+  ** Acquire the root nodes of the tree
+  **
+  ** { "database": {
+  **     "xmlns": "http://gramps-project.org/xml/1.7.1/",
+  **     "header": {
+  **       "created": {
+  **         "date": "2019-09-12",
+  **         "version": "5.1.0"
+  **       },
+  **       "roots": {
+  **         "root": [
+  **           {"id": "F0037"},
+  **           {"id": "F0040"}
+  **       ] },
+  **       "researcher": "Steven Almeroth"
+  **     },...
+  */
   roots ( state ) {
-    if ( state.db && state.db.header && state.db.header.roots && state.db.header.roots )
-      return state.db.header.roots.root;
+    return state.db?.header?.roots?.root
   },
 
   totalFamilys ( state ) {
