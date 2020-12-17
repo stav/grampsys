@@ -31,7 +31,11 @@
     <v-footer app absolute>
       <span>&copy; 2020 Steven Almeroth</span>
       <v-spacer />
-      v2.1.1
+      Grampsys <v-chip small class="ml-1" v-text="version.Grampsys" />
+      <v-divider vertical class="mx-4" />
+      Gramps <v-chip small class="ml-1" v-text="version.Gramps" />
+      <v-divider vertical class="mx-4" />
+      Data <v-chip small class="ml-1" v-text="version.date" />
     </v-footer>
 
   </v-app>
@@ -57,6 +61,16 @@
       mdiPlaylistCheck,
       mdiHome,
     }),
+
+    computed: {
+      version () {
+        return {
+          Grampsys: '2.1.2',
+          Gramps: this.$store.state.db?.header?.created?.version,
+          date: this.$store.state.db?.header?.created?.date,
+        }
+      },
+    },
 
     created () {
       this.$vuetify.theme.dark = true;
