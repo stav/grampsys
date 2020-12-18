@@ -65,7 +65,7 @@
     computed: {
       version () {
         return {
-          Grampsys: '2.1.2',
+          Grampsys: '2.1.3',
           Gramps: this.$store.state.db?.header?.created?.version,
           date: this.$store.state.db?.header?.created?.date,
         }
