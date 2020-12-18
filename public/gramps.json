@@ -6,12 +6,12 @@
         "date": "2020-12-18",
         "version": "5.1.3"
       },
-			"roots": {
-				"root": [
-					{"id": "F0037"},
-					{"id": "F0040"}
-				]
-			},
+      "roots": {
+        "root": [
+          {"id": "F0037"},
+          {"id": "F0040"}
+        ]
+      },
       "researcher": "Steven Almeroth",
       "mediapath": "/home/stav/Documents/Family/Gramps"
     },
