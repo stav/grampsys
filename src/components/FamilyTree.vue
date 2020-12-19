@@ -1,6 +1,5 @@
 <template>
   <v-card>
-
     <v-toolbar>
       <v-btn large text icon @click="clear" title="Clear">
         <v-icon large color="grey darken-1" v-text="mdiCloseCircleOutline" />
@@ -20,7 +19,7 @@
 
       <v-text-field flat clearable solo-inverted hide-details
         v-model="search"
-        label="Search Family Tree"
+        label="Search"
         :clear-icon="mdiCloseCircleOutline"
       ></v-text-field>
     </v-toolbar>
@@ -32,55 +31,41 @@
       :search="search"
       :open.sync="open"
       >
+      <!-- Arrow is not customized -->
+
+      <!-- Folder icon, age chip, descendants badge -->
       <template v-slot:prepend="{ item, open }">
-
         <v-icon>{{ open ? mdiFolderOpen : mdiFolder }}</v-icon>
-
-        <v-badge color="success" overlap title="descendants">
-          <template v-slot:badge>
-            <span v-text="item.desc" v-if="item.desc"></span>
-          </template>
-          <v-chip
-            color="primary" text-color="white" title="Years since birth" class="ml-1"
-            v-text="item.age"
-            />
-        </v-badge>
-
-        <v-icon large color="grey" class="ml-1"
-          v-text="item.type==='FAMILY' ? mdiHumanMaleFemale : mdiAccount"
-        />
-
+        <family-person :item="item" />
       </template>
 
+      <!-- Names & Id -->
       <template v-slot:label="{ item }">
-        <div>
-          <div v-if="item.type==='INDIVIDUAL'">
-            <span v-text="item.name" @click.stop="activate(item.id)" />
-            <span v-text="item.id" class="ml-2 secondary--text text--lighten-1" title="Gramps Id" />
-          </div>
-          <div v-if="item.type==='FAMILY'">
-            <v-card class="d-flex flex-wrap">
+        <span
+          v-if="item.type==='INDIVIDUAL'"
+          v-text="item.name"
+          @click.stop="activate(item.id)"
+        />
+        <span
+          v-if="item.type==='FAMILY'"
+        >
+          <v-btn outlined color="red" class="mr-1"
+            @click.stop="activate(item.father.id)"
+            :title="item.father.name"
+            v-if="item.father"
+            >
+            <v-icon left v-text="mdiFace" /> {{ item.father.name }}
+          </v-btn>
 
-              <v-btn outlined color="red" class="mr-1"
-                @click.stop="activate(item.father.id)"
-                :title="item.father.name"
-                v-if="item.father"
-                >
-                <v-icon left v-text="mdiFace" /> {{ item.father.name }}
-              </v-btn>
-
-              <v-btn outlined color="blue" class="mr-1"
-                @click.stop="activate(item.mother.id)"
-                :title="item.mother.name"
-                v-if="item.mother"
-                >
-                <v-icon left v-text="mdiFaceWoman" /> {{ item.mother.name }}
-              </v-btn>
-
-              <span v-text="item.id" class="ml-2 secondary--text text--lighten-1" title="Gramps Id" />
-            </v-card>
-          </div>
-        </div>
+          <v-btn outlined color="blue" class="mr-1"
+            @click.stop="activate(item.mother.id)"
+            :title="item.mother.name"
+            v-if="item.mother"
+            >
+            <v-icon left v-text="mdiFaceWoman" /> {{ item.mother.name }}
+          </v-btn>
+        </span>
+        <span v-text="item.id" class="ml-2 secondary--text text--lighten-1" title="Gramps Id" />
       </template>
     </v-treeview>
   </v-card>
@@ -99,8 +84,13 @@
     mdiFolderSyncOutline,
     mdiHumanMaleFemale,
   } from '@mdi/js'
+  import FamilyPerson from '@/components/FamilyPerson'
 
   export default {
+
+    components: {
+      'family-person': FamilyPerson,
+    },
 
     props: {
       items: Array,

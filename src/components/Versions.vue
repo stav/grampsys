@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  const GRAMPSYS_VERSION = '2.1.4'
+  const GRAMPSYS_VERSION = '2.1.5'
 
   export default {
     computed: {
@@ -20,7 +20,7 @@
           Gramps: this.$store.state.db?.header?.created?.version,
           date: this.$store.state.db?.header?.created?.date,
         }
-      },
+      }
     }
   }
 </script>
